@@ -18,7 +18,9 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
   const isMie = item.category === 'kuah' || item.category === 'goreng';
 
   const [doneness, setDoneness] = useState<SelectedCustomization['doneness']>(
-    item.name.toLowerCase().includes('nyemek') ? 'Nyemek Kental Gurih' : 'Kenyal (Standar)'
+    item.name.toLowerCase().includes('nyemek') || item.name.toLowerCase().includes('bangladesh') 
+      ? 'Nyemek Kental Gurih' 
+      : 'Kenyal (Standar)'
   );
   const [selectedEggId, setSelectedEggId] = useState<string>('egg_ceplok_half');
   const [selectedToppings, setSelectedToppings] = useState<Topping[]>([
@@ -52,24 +54,24 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-surface rounded-2xl border border-border w-full max-w-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-[#1c1917] rounded-2xl border border-[#2b2520] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
         {/* Modal Header */}
-        <div className="px-5 py-4 border-b border-border flex items-center justify-between bg-surface sticky top-0 z-10">
+        <div className="px-5 py-4 border-b border-[#2b2520] flex items-center justify-between bg-[#1a1714] sticky top-0 z-10">
           <div className="flex items-center gap-2.5">
-            <span className="text-2xl">{item.imageIcon}</span>
+            <span className="text-2xl p-1 bg-[#26221d] rounded-lg border border-[#383129]">{item.imageIcon}</span>
             <div>
-              <h2 className="text-base font-bold text-ink">
-                Kustomisasi {item.name}
+              <h2 className="text-base font-bold text-white">
+                Racikan Warisan: {item.name}
               </h2>
               <p className="text-xs text-ink-muted">
-                Pilih racikan kematangan, telur, topping, dan cabai rawit
+                Kustomisasi kematangan, telur bebek/ayam, dan level cabai rawit
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-ground hover:bg-raised flex items-center justify-center text-ink-muted hover:text-ink transition-colors"
+            className="w-8 h-8 rounded-full bg-[#26221d] hover:bg-[#383129] flex items-center justify-center text-ink-muted hover:text-white transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -80,8 +82,8 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
           {/* Section: Kematangan Mie */}
           {isMie && (
             <div>
-              <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2">
-                Tekstur & Kematangan Mie
+              <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
+                Konsistensi Kuah & Kematangan
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {(['Kenyal (Standar)', 'Matang Lembut', 'Kering / Tiris', 'Nyemek Kental Gurih'] as const).map(
@@ -92,10 +94,10 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
                         key={level}
                         type="button"
                         onClick={() => setDoneness(level)}
-                        className={`p-2.5 rounded-lg border text-left text-xs font-medium transition-all ${
+                        className={`p-2.5 rounded-xl border text-left text-xs font-semibold transition-all ${
                           isSelected
-                            ? 'bg-accent text-white border-accent shadow-xs'
-                            : 'bg-ground text-ink border-border hover:bg-raised'
+                            ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs'
+                            : 'bg-[#26221d] text-ink-body border-[#383129] hover:bg-[#2d2822]'
                         }`}
                       >
                         {level}
@@ -108,14 +110,14 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
           )}
 
           {/* Section: Level Pedas Cabai Rawit */}
-          <div className="bg-ground/70 rounded-xl p-3.5 border border-border/80">
+          <div className="bg-[#141210] rounded-xl p-3.5 border border-[#2b2520]">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-ink flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-white flex items-center gap-1.5">
                 <Flame className="w-4 h-4 text-status-negative" />
                 Level Pedas Cabai Rawit Merah
               </span>
-              <span className="text-xs font-bold font-mono text-status-negative px-2 py-0.5 rounded bg-status-negative-bg">
-                {spicinessLevel === 0 ? 'Tidak Pedas' : `${spicinessLevel} Butir Rawit`}
+              <span className="text-xs font-bold font-mono text-status-negative px-2 py-0.5 rounded bg-status-negative-bg border border-red-900/40">
+                {spicinessLevel === 0 ? 'Lv.0 (Santai)' : `Lv.${spicinessLevel} (${spicinessLevel} Rawit 🔥)`}
               </span>
             </div>
 
@@ -124,7 +126,7 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
                 type="button"
                 disabled={spicinessLevel <= 0}
                 onClick={() => setSpicinessLevel((p) => Math.max(0, p - 1))}
-                className="w-8 h-8 rounded-lg bg-surface border border-border flex items-center justify-center text-ink hover:bg-raised disabled:opacity-40"
+                className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-white hover:bg-[#383129] disabled:opacity-40"
               >
                 <Minus className="w-3.5 h-3.5" />
               </button>
@@ -142,7 +144,7 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
                 type="button"
                 disabled={spicinessLevel >= 10}
                 onClick={() => setSpicinessLevel((p) => Math.min(10, p + 1))}
-                className="w-8 h-8 rounded-lg bg-surface border border-border flex items-center justify-center text-ink hover:bg-raised disabled:opacity-40"
+                className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-white hover:bg-[#383129] disabled:opacity-40"
               >
                 <Plus className="w-3.5 h-3.5" />
               </button>
@@ -151,14 +153,14 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
               <span>0 (Anak Bawang)</span>
               <span>3 (Sedang)</span>
               <span>5 (Nampol)</span>
-              <span>10 (Kesurupan 🔥)</span>
+              <span className="text-status-negative font-semibold">10 (Kesurupan 🔥)</span>
             </div>
           </div>
 
           {/* Section: Pilihan Telur */}
           {isMie && (
             <div>
-              <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
                 Pilihan Racikan Telur
               </label>
               <div className="space-y-1.5">
@@ -169,23 +171,23 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
                       key={egg.id}
                       type="button"
                       onClick={() => setSelectedEggId(egg.id)}
-                      className={`w-full p-2.5 rounded-lg border text-left flex items-center justify-between text-xs transition-all ${
+                      className={`w-full p-2.5 rounded-xl border text-left flex items-center justify-between text-xs transition-all ${
                         isSelected
-                          ? 'bg-accent/5 border-accent text-ink font-semibold'
-                          : 'bg-surface border-border text-ink hover:bg-ground'
+                          ? 'bg-[#2d2822] border-warm-amber text-white font-semibold'
+                          : 'bg-[#231f1a] border-[#2b2520] text-ink-body hover:bg-[#28231d]'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         <div
                           className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-accent bg-accent text-white' : 'border-border'
+                            isSelected ? 'border-warm-amber bg-warm-amber text-[#12100e]' : 'border-[#383129]'
                           }`}
                         >
                           {isSelected && <Check className="w-2.5 h-2.5" />}
                         </div>
                         <span>{egg.name}</span>
                       </div>
-                      <span className="font-mono text-ink-muted">
+                      <span className="font-mono text-warm-amber">
                         +{formatRupiah(egg.price)}
                       </span>
                     </button>
@@ -197,7 +199,7 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
 
           {/* Section: Ekstra Topping */}
           <div>
-            <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
               Ekstra Topping Tambahan (Bisa Pilih Banyak)
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -208,23 +210,23 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
                     key={top.id}
                     type="button"
                     onClick={() => toggleTopping(top)}
-                    className={`p-2.5 rounded-lg border text-left flex items-center justify-between text-xs transition-all ${
+                    className={`p-2.5 rounded-xl border text-left flex items-center justify-between text-xs transition-all ${
                       isSelected
-                        ? 'bg-accent/5 border-accent text-ink font-semibold'
-                        : 'bg-surface border-border text-ink hover:bg-ground'
+                        ? 'bg-[#2d2822] border-warm-amber text-white font-semibold'
+                        : 'bg-[#231f1a] border-[#2b2520] text-ink-body hover:bg-[#28231d]'
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <div
                         className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          isSelected ? 'border-accent bg-accent text-white' : 'border-border'
+                          isSelected ? 'border-warm-amber bg-warm-amber text-[#12100e]' : 'border-[#383129]'
                         }`}
                       >
                         {isSelected && <Check className="w-2.5 h-2.5" />}
                       </div>
                       <span className="line-clamp-1">{top.name}</span>
                     </div>
-                    <span className="font-mono text-ink-muted shrink-0 ml-1">
+                    <span className="font-mono text-warm-amber shrink-0 ml-1">
                       +{formatRupiah(top.price)}
                     </span>
                   </button>
@@ -235,26 +237,26 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
 
           {/* Section: Catatan Khusus */}
           <div>
-            <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-1.5">
               Catatan Masakan (Opsional)
             </label>
             <input
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Contoh: Kuah agak banyak, bawang goreng dibanyakin..."
-              className="w-full h-9 px-3 rounded-lg bg-surface border border-border text-xs focus:outline-none focus:ring-1 focus:ring-accent"
+              placeholder="Contoh: Kuah dibanyakin, taburan bawang goreng dobel..."
+              className="w-full h-9 px-3 rounded-xl bg-[#141210] border border-[#2b2520] text-xs text-white placeholder:text-ink-muted focus:outline-none focus:ring-1 focus:ring-warm-amber"
             />
           </div>
         </div>
 
-        {/* Modal Footer: Total & Add Button */}
-        <div className="p-4 bg-ground border-t border-border flex items-center justify-between gap-3">
+        {/* Modal Footer */}
+        <div className="p-4 bg-[#141210] border-t border-[#2b2520] flex items-center justify-between gap-3">
           <div>
             <span className="text-[11px] text-ink-muted block leading-none">
               Harga Satuan Racikan
             </span>
-            <span className="text-base font-bold text-ink font-mono tabular-nums">
+            <span className="text-base font-bold text-warm-amber font-mono tabular-nums">
               {formatRupiah(totalPrice)}
             </span>
           </div>
@@ -262,9 +264,9 @@ export const ToppingModal: React.FC<ToppingModalProps> = ({
           <button
             type="button"
             onClick={handleSave}
-            className="px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold transition-all shadow-xs flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-warm-amber hover:bg-amber-500 text-[#12100e] text-xs sm:text-sm font-bold transition-all shadow-xs flex items-center gap-2"
           >
-            <span>Tambahkan ke Pesanan</span>
+            <span>Tambahkan ke Tiket</span>
           </button>
         </div>
       </div>

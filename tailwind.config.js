@@ -7,33 +7,39 @@ export default {
   theme: {
     extend: {
       colors: {
-        ground: '#f8f8f8',
-        surface: '#ffffff',
-        raised: '#eeeeee',
-        border: '#e6e6e6',
-        rule: '#f0f0f0',
+        // V2 Dark Roast & Warm Amber Palette
+        ground: '#12100e',
+        surface: '#1a1714',
+        'surface-elevated': '#231f1a',
+        raised: '#26221d',
+        border: '#2b2520',
+        'border-light': '#383129',
+        rule: '#26221d',
         ink: {
-          DEFAULT: '#0a0a0a',
-          muted: '#6b6b6b',
+          DEFAULT: '#ffffff',
+          body: '#e7e5e4',
+          muted: '#a8a29e',
         },
         accent: {
-          DEFAULT: '#141414',
-          hover: '#262626',
+          DEFAULT: '#f59e0b',
+          hover: '#d97706',
+          dark: '#b45309',
         },
         warm: {
           dark: '#12100e',
           surface: '#1c1917',
           border: '#292524',
           amber: '#f59e0b',
+          gold: '#fbbf24',
         },
         status: {
-          positive: '#2e7d32',
-          'positive-bg': '#dcfae5',
-          negative: '#c4242a',
-          'negative-bg': '#ffedea',
-          warning: '#92400e',
-          'warning-bg': '#fffbeb',
-          chart: '#1d5fbf'
+          positive: '#10b981',
+          'positive-bg': '#064e3b',
+          negative: '#ef4444',
+          'negative-bg': '#881337',
+          warning: '#f59e0b',
+          'warning-bg': '#78350f',
+          chart: '#3b82f6'
         }
       },
       fontFamily: {

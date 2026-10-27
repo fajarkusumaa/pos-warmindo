@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Printer, Bluetooth, RefreshCw, Check, CheckCircle2 } from 'lucide-react';
+import { X, Printer, Bluetooth, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { PrinterConfig } from '../../types';
 
 interface PrinterSettingsModalProps {
@@ -43,16 +43,16 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-surface rounded-2xl border border-border w-full max-w-lg shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-[#1c1917] rounded-2xl border border-[#2b2520] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between bg-surface">
+        <div className="p-4 sm:p-5 border-b border-[#2b2520] flex items-center justify-between bg-[#1a1714]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-ground border border-border flex items-center justify-center text-ink">
+            <div className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-warm-amber">
               <Printer className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-ink">
+              <h3 className="text-base font-bold text-white">
                 Konektivitas Printer Thermal Bluetooth
               </h3>
               <p className="text-xs text-ink-muted">
@@ -62,7 +62,7 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-ground hover:bg-raised flex items-center justify-center text-ink-muted hover:text-ink"
+            className="w-8 h-8 rounded-full bg-[#26221d] hover:bg-[#383129] flex items-center justify-center text-ink-muted hover:text-white"
           >
             <X className="w-4 h-4" />
           </button>
@@ -73,14 +73,14 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
           {/* Section: Bluetooth Device Pairing */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="font-semibold text-ink uppercase tracking-wider text-[11px]">
+              <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px]">
                 Perangkat Bluetooth Terdeteksi
               </label>
               <button
                 type="button"
                 onClick={handleScan}
                 disabled={isScanning}
-                className="flex items-center gap-1 text-ink font-medium hover:text-accent disabled:opacity-50"
+                className="flex items-center gap-1 text-white font-medium hover:text-warm-amber disabled:opacity-50"
               >
                 <RefreshCw className={`w-3 h-3 ${isScanning ? 'animate-spin' : ''}`} />
                 <span>{isScanning ? 'Memindai...' : 'Pindai Ulang'}</span>
@@ -95,22 +95,22 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                     key={device.mac}
                     className={`p-3 rounded-xl border flex items-center justify-between transition-all ${
                       isConnected
-                        ? 'bg-status-positive-bg/40 border-status-positive/40'
-                        : 'bg-ground border-border'
+                        ? 'bg-[#064e3b]/50 border-[#047857]'
+                        : 'bg-[#141210] border-border'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className={`w-7 h-7 rounded-lg flex items-center justify-center ${
                           isConnected
-                            ? 'bg-status-positive text-white'
-                            : 'bg-raised text-ink-muted'
+                            ? 'bg-[#10b981] text-[#12100e]'
+                            : 'bg-[#26221d] text-ink-muted'
                         }`}
                       >
                         <Bluetooth className="w-4 h-4" />
                       </div>
                       <div>
-                        <p className="font-semibold text-ink text-xs">
+                        <p className="font-semibold text-white text-xs">
                           {device.name}
                         </p>
                         <p className="text-[10px] text-ink-muted font-mono">
@@ -131,8 +131,8 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                       }}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                         isConnected
-                          ? 'bg-status-negative-bg text-status-negative border border-status-negative/30 hover:bg-rose-100'
-                          : 'bg-accent text-white hover:bg-accent-hover'
+                          ? 'bg-[#881337] text-white border border-red-800 hover:bg-rose-900'
+                          : 'bg-warm-amber text-[#12100e] hover:bg-amber-500 font-bold'
                       }`}
                     >
                       {isConnected ? 'Putuskan' : 'Hubungkan'}
@@ -145,7 +145,7 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
 
           {/* Section: Paper Width Selection */}
           <div>
-            <label className="font-semibold text-ink uppercase tracking-wider text-[11px] block mb-2">
+            <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px] block mb-2">
               Ukuran Lebar Kertas Thermal
             </label>
             <div className="grid grid-cols-2 gap-2.5">
@@ -154,12 +154,12 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                 onClick={() => setCurrentConfig((prev) => ({ ...prev, paperSize: '58mm' }))}
                 className={`p-3 rounded-xl border text-left transition-all ${
                   currentConfig.paperSize === '58mm'
-                    ? 'bg-accent text-white border-accent shadow-xs'
-                    : 'bg-ground border-border text-ink hover:bg-raised'
+                    ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs font-bold'
+                    : 'bg-[#141210] border-border text-white hover:bg-[#26221d]'
                 }`}
               >
-                <div className="font-bold text-xs">58mm (32 Karakter)</div>
-                <div className={`text-[10px] mt-0.5 ${currentConfig.paperSize === '58mm' ? 'text-white/80' : 'text-ink-muted'}`}>
+                <div className="text-xs">58mm (32 Karakter)</div>
+                <div className={`text-[10px] mt-0.5 font-normal ${currentConfig.paperSize === '58mm' ? 'text-[#12100e]/80' : 'text-ink-muted'}`}>
                   Rekomendasi printer saku kasir Bluetooth
                 </div>
               </button>
@@ -169,12 +169,12 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                 onClick={() => setCurrentConfig((prev) => ({ ...prev, paperSize: '80mm' }))}
                 className={`p-3 rounded-xl border text-left transition-all ${
                   currentConfig.paperSize === '80mm'
-                    ? 'bg-accent text-white border-accent shadow-xs'
-                    : 'bg-ground border-border text-ink hover:bg-raised'
+                    ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs font-bold'
+                    : 'bg-[#141210] border-border text-white hover:bg-[#26221d]'
                 }`}
               >
-                <div className="font-bold text-xs">80mm (48 Karakter)</div>
-                <div className={`text-[10px] mt-0.5 ${currentConfig.paperSize === '80mm' ? 'text-white/80' : 'text-ink-muted'}`}>
+                <div className="text-xs">80mm (48 Karakter)</div>
+                <div className={`text-[10px] mt-0.5 font-normal ${currentConfig.paperSize === '80mm' ? 'text-[#12100e]/80' : 'text-ink-muted'}`}>
                   Standar printer kasir desktop USB/LAN
                 </div>
               </button>
@@ -183,7 +183,7 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
 
           {/* Section: Receipt Content Toggles */}
           <div className="space-y-2 pt-1 border-t border-border">
-            <label className="font-semibold text-ink uppercase tracking-wider text-[11px] block">
+            <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px] block">
               Format Konten Struk
             </label>
 
@@ -192,9 +192,9 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                 type="checkbox"
                 checked={currentConfig.printLogo}
                 onChange={(e) => setCurrentConfig((prev) => ({ ...prev, printLogo: e.target.checked }))}
-                className="w-4 h-4 rounded accent-accent"
+                className="w-4 h-4 rounded accent-warm-amber"
               />
-              <span className="text-ink">Cetak Header Logo Toko</span>
+              <span className="text-white">Cetak Header Logo Toko</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer">
@@ -202,28 +202,28 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
                 type="checkbox"
                 checked={currentConfig.printToppingDetails}
                 onChange={(e) => setCurrentConfig((prev) => ({ ...prev, printToppingDetails: e.target.checked }))}
-                className="w-4 h-4 rounded accent-accent"
+                className="w-4 h-4 rounded accent-warm-amber"
               />
-              <span className="text-ink">Cetak Rincian Racikan Topping & Cabai</span>
+              <span className="text-white">Cetak Rincian Racikan Topping & Cabai</span>
             </label>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 bg-ground border-t border-border flex items-center justify-between gap-2">
+        <div className="p-4 bg-[#141210] border-t border-[#2b2520] flex items-center justify-between gap-2">
           <button
             type="button"
             onClick={handleTestPrint}
-            className="px-3.5 py-2 rounded-xl border border-border bg-surface hover:bg-raised text-xs font-semibold text-ink flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-xl border border-border bg-[#231f1a] hover:bg-[#2c2620] text-xs font-semibold text-white flex items-center gap-1.5 transition-colors"
           >
             {testPrintDone ? (
               <>
                 <CheckCircle2 className="w-3.5 h-3.5 text-status-positive" />
-                <span className="text-status-positive">Test Berhasil!</span>
+                <span className="text-status-positive font-bold">Test Berhasil!</span>
               </>
             ) : (
               <>
-                <Printer className="w-3.5 h-3.5" />
+                <Printer className="w-3.5 h-3.5 text-warm-amber" />
                 <span>Test Print</span>
               </>
             )}
@@ -233,14 +233,14 @@ export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-ink hover:bg-raised transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-ink-muted hover:text-white transition-colors"
             >
               Tutup
             </button>
             <button
               type="button"
               onClick={handleSave}
-              className="px-5 py-2 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow-xs transition-colors"
+              className="px-5 py-2 rounded-xl bg-warm-amber hover:bg-amber-500 text-[#12100e] text-xs font-bold shadow-xs transition-colors"
             >
               Simpan Pengaturan
             </button>
