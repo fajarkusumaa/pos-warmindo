@@ -1,265 +1,277 @@
-import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { Catalog } from './components/Register/Catalog';
-import { OrderCart } from './components/Register/OrderCart';
+import React, { useCallback, useState } from 'react';
+import { RegisterScreen } from './components/Register/RegisterScreen';
+import { MobileRegister } from './components/Register/MobileRegister';
 import { ToppingModal } from './components/Register/ToppingModal';
-import { PaymentModal } from './components/Register/PaymentModal';
-import { ReceiptModal } from './components/Register/ReceiptModal';
-import { TableTracker } from './components/Tables/TableTracker';
-import { OwnerDashboard } from './components/Dashboard/OwnerDashboard';
+import { QrisModal } from './components/Register/QrisModal';
+import { ChangeModal } from './components/Register/ChangeModal';
 import { PrinterSettingsModal } from './components/Hardware/PrinterSettingsModal';
-import { 
-  CartItem, 
-  MenuItem, 
-  Order, 
-  PrinterConfig, 
-  SelectedCustomization, 
-  TableInfo 
-} from './types';
-import { INITIAL_TABLES } from './data/mockData';
+import { OwnerPanel, OwnerPage } from './components/Owner/OwnerPanel';
+import { DashboardPage } from './components/Owner/pages/DashboardPage';
+import { MenuPage } from './components/Owner/pages/MenuPage';
+import { ReportsPage } from './components/Owner/pages/ReportsPage';
+import { InventoryPage } from './components/Owner/pages/InventoryPage';
+import { PurchasingPage } from './components/Owner/pages/PurchasingPage';
+import { StaffPage } from './components/Owner/pages/StaffPage';
+import { OutletsPage } from './components/Owner/pages/OutletsPage';
+import { SettingsPage } from './components/Owner/pages/SettingsPage';
+import { useCart } from './hooks/useCart';
+import { useMediaQuery } from './hooks/useMediaQuery';
+import { EggOption, MenuItem, Order, OrderType, PrinterConfig, TableInfo, Topping } from './types';
+import { EGGS_AVAILABLE, INITIAL_TABLES, MENU_ITEMS, TOPPINGS_AVAILABLE } from './data/mockData';
+import {
+  EMPLOYEES,
+  INITIAL_PROFILE,
+  OUTLETS,
+  PURCHASE_ORDERS,
+  STOCK_ITEMS,
+} from './data/ownerData';
+
+const CASHIER = { name: 'Budi Santoso', shift: 'Shift Malam' };
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'register' | 'tables' | 'dashboard'>('register');
-  const [userRole, setUserRole] = useState<'cashier' | 'owner'>('cashier');
+  const [mode, setMode] = useState<'cashier' | 'owner'>('cashier');
+  const [ownerPage, setOwnerPage] = useState<OwnerPage>('dasbor');
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  // Cart & Orders
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [tableNumber, setTableNumber] = useState<string>('Meja 04');
-  const [selectedItemForCustomization, setSelectedItemForCustomization] = useState<MenuItem | null>(null);
+  // Menu & extras (owner toggles availability, register reads it)
+  const [menu, setMenu] = useState<MenuItem[]>(MENU_ITEMS);
+  const [eggs, setEggs] = useState<EggOption[]>(EGGS_AVAILABLE);
+  const [toppings, setToppings] = useState<Topping[]>(TOPPINGS_AVAILABLE);
 
-  // Modals
-  const [paymentModalOpen, setPaymentModalOpen] = useState<boolean>(false);
-  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'qris'>('cash');
-  const [receiptModalOpen, setReceiptModalOpen] = useState<boolean>(false);
-  const [lastCompletedOrder, setLastCompletedOrder] = useState<Order | null>(null);
-  const [printerModalOpen, setPrinterModalOpen] = useState<boolean>(false);
-
-  // Hardware Printer Configuration
+  // Register
+  const cart = useCart();
+  const [orderNumber, setOrderNumber] = useState(92);
+  const [orderType, setOrderType] = useState<OrderType>('dine_in');
+  const [tableNumber, setTableNumber] = useState('Meja 04');
+  const [tables, setTables] = useState<TableInfo[]>(INITIAL_TABLES);
+  const [customizing, setCustomizing] = useState<MenuItem | null>(null);
+  const [qrisOpen, setQrisOpen] = useState(false);
+  const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
+  const [printerOpen, setPrinterOpen] = useState(false);
   const [printerConfig, setPrinterConfig] = useState<PrinterConfig>({
-    name: 'RPP02N-Thermal-58',
+    name: 'RPP02N Thermal 58',
     macAddress: '66:32:B1:4C:90:11',
     connected: true,
+    battery: 82,
     paperSize: '58mm',
     printLogo: true,
     printAddress: true,
-    printToppingDetails: true,
-    footerText: 'Matur Nuwun! Ditunggu rawuhnya lagi.',
+    printWhatsapp: true,
+    printEmail: false,
+    footerText: 'Terima kasih, mampir lagi ya!',
   });
 
-  // Table status data
-  const [tables, setTables] = useState<TableInfo[]>(INITIAL_TABLES);
+  // Owner data
+  const [stock, setStock] = useState(STOCK_ITEMS);
+  const [purchaseOrders, setPurchaseOrders] = useState(PURCHASE_ORDERS);
+  const [poDraftItems, setPoDraftItems] = useState<string | undefined>();
+  const [employees, setEmployees] = useState(EMPLOYEES);
+  const [outletId, setOutletId] = useState(OUTLETS[0].id);
+  const [profile, setProfile] = useState(INITIAL_PROFILE);
 
-  // Handle Item selection in Catalog
+  const hotkeysEnabled = !customizing && !qrisOpen && !completedOrder && !printerOpen;
+
   const handleSelectItem = (item: MenuItem) => {
-    // If it's Indomie (kuah or goreng), open customization modal
-    if (item.category === 'kuah' || item.category === 'goreng') {
-      setSelectedItemForCustomization(item);
-    } else {
-      // Add directly
-      addItemToCart(item);
-    }
+    if (!item.available) return;
+    if (item.customizable) setCustomizing(item);
+    else cart.addItem(item);
   };
 
-  const addItemToCart = (item: MenuItem, customization?: SelectedCustomization) => {
-    const unitPrice = item.basePrice + (customization ? customization.eggPrice + customization.toppings.reduce((s, t) => s + t.price, 0) : 0);
-    
-    // Check if duplicate standard item exists
-    if (!customization) {
-      const existing = cartItems.find((i) => i.menuItem.id === item.id && !i.customization);
-      if (existing) {
-        setCartItems((prev) =>
-          prev.map((i) =>
-            i.cartItemId === existing.cartItemId
-              ? { ...i, quantity: i.quantity + 1, subtotal: (i.quantity + 1) * i.unitPrice }
-              : i
-          )
+  const completeOrder = useCallback(
+    (method: 'cash' | 'qris', cashReceived?: number) => {
+      const total = cart.total;
+      const now = new Date();
+      const label = orderType === 'takeaway' ? 'Bungkus' : tableNumber;
+      setCompletedOrder({
+        id: `ord_${now.getTime()}`,
+        orderNumber: `WMD-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(orderNumber).padStart(3, '0')}`,
+        tableNumber: label,
+        items: [...cart.items],
+        subtotal: total,
+        discount: 0,
+        tax: 0,
+        total,
+        paymentMethod: method,
+        cashReceived,
+        change: cashReceived !== undefined ? cashReceived - total : undefined,
+        cashierName: mode === 'owner' ? 'Fajar Kusuma' : CASHIER.name,
+        timestamp: now.toISOString(),
+      });
+      if (orderType === 'dine_in') {
+        setTables((prev) =>
+          prev.map((t) =>
+            `Meja ${t.number}` === tableNumber
+              ? { ...t, status: 'eating', totalBill: (t.totalBill ?? 0) + total, guestCount: t.guestCount ?? 2 }
+              : t,
+          ),
         );
-        return;
       }
-    }
+    },
+    [cart.items, cart.total, mode, orderNumber, orderType, tableNumber],
+  );
 
-    const newItem: CartItem = {
-      cartItemId: `cart_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-      menuItem: item,
-      quantity: 1,
-      customization,
-      unitPrice,
-      subtotal: unitPrice,
-    };
+  const handlePayCash = useCallback((cashReceived: number) => completeOrder('cash', cashReceived), [completeOrder]);
 
-    setCartItems((prev) => [...prev, newItem]);
-  };
-
-  const handleUpdateQuantity = (cartItemId: string, delta: number) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.cartItemId === cartItemId) {
-            const newQty = item.quantity + delta;
-            return {
-              ...item,
-              quantity: newQty,
-              subtotal: newQty * item.unitPrice,
-            };
-          }
-          return item;
-        })
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  const handleRemoveItem = (cartItemId: string) => {
-    setCartItems((prev) => prev.filter((i) => i.cartItemId !== cartItemId));
-  };
-
-  const handleClearCart = () => {
-    setCartItems([]);
-  };
-
-  // Open Payment
-  const handleOpenPayment = (method: 'cash' | 'qris') => {
-    setPaymentMethod(method);
-    setPaymentModalOpen(true);
-  };
-
-  // Handle Payment Success
-  const handlePaymentSuccess = (method: 'cash' | 'qris', cashReceived?: number, change?: number) => {
-    const subtotal = cartItems.reduce((sum, i) => sum + i.subtotal, 0);
-    const orderNumber = `WMD-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}-${String(Math.floor(Math.random() * 900) + 100)}`;
-
-    const newOrder: Order = {
-      id: `ord_${Date.now()}`,
-      orderNumber,
-      tableNumber,
-      items: [...cartItems],
-      subtotal,
-      discount: 0,
-      tax: 0,
-      total: subtotal,
-      paymentMethod: method,
-      cashReceived,
-      change,
-      cashierName: userRole === 'owner' ? 'Owner (Fajar)' : 'Budi Santoso',
-      timestamp: new Date().toISOString(),
-    };
-
-    setLastCompletedOrder(newOrder);
-    setPaymentModalOpen(false);
-    setReceiptModalOpen(true);
-
-    // Update table status if matched
-    setTables((prev) =>
-      prev.map((t) => {
-        if (tableNumber.includes(t.number)) {
-          return {
-            ...t,
-            status: 'eating',
-            totalBill: (t.totalBill || 0) + subtotal,
-            guestCount: t.guestCount || 2,
-            elapsedSeconds: t.elapsedSeconds || 60,
-          };
-        }
-        return t;
-      })
-    );
-  };
-
-  // Start new transaction
   const handleNewTransaction = () => {
-    setCartItems([]);
-    setReceiptModalOpen(false);
-    setLastCompletedOrder(null);
+    cart.clear();
+    setCompletedOrder(null);
+    setOrderNumber((n) => n + 1);
   };
 
-  // Select Table from Tracker
-  const handleSelectTableFromTracker = (table: TableInfo) => {
-    setTableNumber(`Meja ${table.number}`);
-    setActiveTab('register');
+  const setAvailable = (kind: 'menu' | 'egg' | 'topping', id: string, available: boolean) => {
+    if (kind === 'menu') setMenu((prev) => prev.map((m) => (m.id === id ? { ...m, available } : m)));
+    if (kind === 'egg') setEggs((prev) => prev.map((e) => (e.id === id ? { ...e, available } : e)));
+    if (kind === 'topping') setToppings((prev) => prev.map((t) => (t.id === id ? { ...t, available } : t)));
+  };
+
+  const goOwner = (page: OwnerPage) => {
+    setMode('owner');
+    setOwnerPage(page);
+  };
+
+  const orderPanelProps = {
+    cart,
+    orderNumber,
+    orderType,
+    onOrderTypeChange: setOrderType,
+    tableNumber,
+    tables,
+    onTableChange: setTableNumber,
+    onPayCash: handlePayCash,
+    onPayQris: () => setQrisOpen(true),
+    hotkeysEnabled,
+  };
+
+  const renderOwnerPage = () => {
+    switch (ownerPage) {
+      case 'dasbor':
+        return <DashboardPage onNavigate={setOwnerPage} />;
+      case 'menu':
+        return (
+          <MenuPage
+            menu={menu}
+            eggs={eggs}
+            toppings={toppings}
+            onSetAvailable={setAvailable}
+            onAddMenuItem={(item) => setMenu((prev) => [...prev, item])}
+            onAddTopping={(t) => setToppings((prev) => [...prev, t])}
+          />
+        );
+      case 'laporan':
+        return <ReportsPage />;
+      case 'inventori':
+        return (
+          <InventoryPage
+            items={stock}
+            onStockIn={(id, qty) => setStock((prev) => prev.map((s) => (s.id === id ? { ...s, stock: s.stock + qty } : s)))}
+            onCreatePo={(items) => {
+              setPoDraftItems(items);
+              setOwnerPage('pembelian');
+            }}
+          />
+        );
+      case 'pembelian':
+        return (
+          <PurchasingPage
+            orders={purchaseOrders}
+            onChange={setPurchaseOrders}
+            draftItems={poDraftItems}
+            onDraftHandled={() => setPoDraftItems(undefined)}
+          />
+        );
+      case 'karyawan':
+        return <StaffPage employees={employees} onAddEmployee={(e) => setEmployees((prev) => [...prev, e])} />;
+      case 'outlet':
+        return (
+          <OutletsPage
+            outlets={OUTLETS}
+            onOpenOutlet={(id) => {
+              setOutletId(id);
+              setOwnerPage('dasbor');
+            }}
+          />
+        );
+      case 'pengaturan':
+        return <SettingsPage profile={profile} onSave={setProfile} onOpenPrinter={() => setPrinterOpen(true)} />;
+    }
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-ground select-none">
-      {/* Universal Top Navbar */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        userRole={userRole}
-        setUserRole={setUserRole}
-        printerConfig={printerConfig}
-        onOpenPrinterModal={() => setPrinterModalOpen(true)}
-      />
+    <div className="h-[100dvh] w-screen overflow-hidden select-none">
+      {mode === 'owner' ? (
+        <OwnerPanel
+          active={ownerPage}
+          onNavigate={setOwnerPage}
+          outlets={OUTLETS}
+          outletId={outletId}
+          onOutletChange={setOutletId}
+          onOpenCashier={() => setMode('cashier')}
+        >
+          {renderOwnerPage()}
+        </OwnerPanel>
+      ) : isDesktop ? (
+        <RegisterScreen
+          {...orderPanelProps}
+          menu={menu}
+          cashierName={CASHIER.name}
+          shiftLabel={CASHIER.shift}
+          printerConfig={printerConfig}
+          onOpenPrinter={() => setPrinterOpen(true)}
+          onOpenOwner={() => goOwner('dasbor')}
+          onSelectItem={handleSelectItem}
+        />
+      ) : (
+        <MobileRegister
+          {...orderPanelProps}
+          menu={menu}
+          cashierName={CASHIER.name}
+          shiftLabel={CASHIER.shift}
+          onSelectItem={handleSelectItem}
+        />
+      )}
 
-      {/* Main Tab Views */}
-      <main className="flex-1 overflow-hidden flex flex-col">
-        {activeTab === 'register' && (
-          <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden">
-            {/* Catalog Grid */}
-            <Catalog onSelectItem={handleSelectItem} />
-
-            {/* Live Order Cart */}
-            <OrderCart
-              items={cartItems}
-              tableNumber={tableNumber}
-              setTableNumber={setTableNumber}
-              onUpdateQuantity={handleUpdateQuantity}
-              onRemoveItem={handleRemoveItem}
-              onClearCart={handleClearCart}
-              onOpenPaymentModal={handleOpenPayment}
-            />
-          </div>
-        )}
-
-        {activeTab === 'tables' && (
-          <TableTracker
-            tables={tables}
-            onSelectTable={handleSelectTableFromTracker}
-          />
-        )}
-
-        {activeTab === 'dashboard' && (
-          <OwnerDashboard />
-        )}
-      </main>
-
-      {/* Modals */}
-      {selectedItemForCustomization && (
+      {customizing && (
         <ToppingModal
-          item={selectedItemForCustomization}
-          onClose={() => setSelectedItemForCustomization(null)}
-          onConfirm={(customization) => {
-            addItemToCart(selectedItemForCustomization, customization);
-            setSelectedItemForCustomization(null);
+          item={customizing}
+          eggs={eggs.filter((e) => e.available !== false)}
+          toppings={toppings.filter((t) => t.available !== false)}
+          onClose={() => setCustomizing(null)}
+          onConfirm={(customization, quantity) => {
+            cart.addItem(customizing, customization, quantity);
+            setCustomizing(null);
           }}
         />
       )}
 
-      {paymentModalOpen && (
-        <PaymentModal
-          totalAmount={cartItems.reduce((s, i) => s + i.subtotal, 0)}
-          tableNumber={tableNumber}
-          initialMethod={paymentMethod}
-          onClose={() => setPaymentModalOpen(false)}
-          onPaymentSuccess={handlePaymentSuccess}
+      {qrisOpen && (
+        <QrisModal
+          total={cart.total}
+          onClose={() => setQrisOpen(false)}
+          onPaid={() => {
+            setQrisOpen(false);
+            completeOrder('qris');
+          }}
         />
       )}
 
-      {receiptModalOpen && lastCompletedOrder && (
-        <ReceiptModal
-          order={lastCompletedOrder}
+      {completedOrder && (
+        <ChangeModal
+          order={completedOrder}
           printerConfig={printerConfig}
           onNewTransaction={handleNewTransaction}
-          onClose={() => setReceiptModalOpen(false)}
+          onOpenPrinter={() => setPrinterOpen(true)}
         />
       )}
 
-      {printerModalOpen && (
+      {printerOpen && (
         <PrinterSettingsModal
           config={printerConfig}
-          onSaveConfig={(cfg) => setPrinterConfig(cfg)}
-          onClose={() => setPrinterModalOpen(false)}
+          onSaveConfig={setPrinterConfig}
+          onClose={() => setPrinterOpen(false)}
         />
       )}
     </div>
   );
 };
+
 export default App;

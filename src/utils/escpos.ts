@@ -25,9 +25,9 @@ export const generateEscPosReceipt = (order: Order, paperWidth: '58mm' | '80mm' 
   };
 
   const lines: string[] = [];
-  lines.push(centerText('WARMINDO & WARKOP 88', maxChars));
-  lines.push(centerText('Jl. Kemang Raya No. 88, Jaksel', maxChars));
-  lines.push(centerText('Telp / WA: 0812-8888-9999', maxChars));
+  lines.push(centerText('WARMINDO 88', maxChars));
+  lines.push(centerText('Jl. Kemang Raya No. 88', maxChars));
+  lines.push(centerText('WA 0812-8008-0088', maxChars));
   lines.push(doubleSeparator);
   lines.push(padBetween(`No: ${order.orderNumber}`, order.tableNumber, maxChars));
   lines.push(padBetween(`Tgl: ${formatReceiptTime(new Date(order.timestamp))}`, `Kasir: ${order.cashierName}`, maxChars));
@@ -40,14 +40,14 @@ export const generateEscPosReceipt = (order: Order, paperWidth: '58mm' | '80mm' 
 
     if (item.customization) {
       const { egg, toppings, spicinessLevel, doneness, notes } = item.customization;
-      if (doneness && doneness !== 'Kenyal (Standar)') {
-        lines.push(`  * ${doneness}`);
+      if (doneness && doneness !== 'Kenyal') {
+        lines.push(`  * Mie ${doneness.toLowerCase()}`);
       }
       if (spicinessLevel > 0) {
-        lines.push(`  * Pedas: ${spicinessLevel} rawit`);
+        lines.push(`  * Pedas lv ${spicinessLevel}`);
       }
       if (egg) {
-        lines.push(`  * +${egg}`);
+        lines.push(`  * +${egg.shortName}`);
       }
       toppings.forEach((t) => {
         lines.push(`  * +${t.name}`);
@@ -74,9 +74,7 @@ export const generateEscPosReceipt = (order: Order, paperWidth: '58mm' | '80mm' 
   }
 
   lines.push(doubleSeparator);
-  lines.push(centerText('Koneksi Wifi Warkop:', maxChars));
-  lines.push(centerText('SSID: W88_KEMANG / Pass: indomiegoreng', maxChars));
-  lines.push(centerText('Matur Nuwun! Ditunggu rawuhnya lagi.', maxChars));
+  lines.push(centerText('Terima kasih, mampir lagi ya!', maxChars));
   lines.push('\n\n');
 
   const textPreview = lines.join('\n');

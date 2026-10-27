@@ -1,37 +1,42 @@
-export type Category = 
-  | 'all' 
-  | 'kuah' 
-  | 'goreng' 
-  | 'minuman_dingin' 
-  | 'kopi_panas' 
-  | 'snack_topping';
+export type Category = 'mie' | 'nasi' | 'minum' | 'kopi' | 'camilan';
 
 export interface Topping {
   id: string;
   name: string;
   price: number;
+  available?: boolean;
+}
+
+export interface EggOption {
+  id: string;
+  name: string;
+  /** Short label used on cart lines and receipts, e.g. "Telur ceplok". */
+  shortName: string;
+  price: number;
+  available?: boolean;
 }
 
 export interface MenuItem {
   id: string;
   name: string;
   category: Category;
-  categoryLabel: string;
   basePrice: number;
-  description: string;
-  badge?: string;
-  badgeType?: 'popular' | 'spicy' | 'special';
+  tag?: 'laris' | 'baru';
+  /** Path under /public, e.g. "/images/indomie-goreng-aceh.jpg". */
+  image?: string;
   available: boolean;
-  imageIcon: string;
+  /** Mie items open the "Racik pesanan" customizer before going into the cart. */
+  customizable?: boolean;
 }
 
+export type Doneness = 'Kenyal' | 'Lembut' | 'Kering';
+
 export interface SelectedCustomization {
-  doneness: 'Kenyal (Standar)' | 'Matang Lembut' | 'Kering / Tiris' | 'Nyemek Kental Gurih';
-  egg?: string;
-  eggPrice: number;
+  doneness: Doneness;
+  egg?: EggOption;
   toppings: Topping[];
-  spicinessLevel: number; // 0 - 10
-  notes: string;
+  spicinessLevel: number; // 0 - 5
+  notes?: string;
 }
 
 export interface CartItem {
@@ -43,11 +48,12 @@ export interface CartItem {
   subtotal: number;
 }
 
+export type OrderType = 'dine_in' | 'takeaway';
+
 export interface Order {
   id: string;
   orderNumber: string;
   tableNumber: string;
-  customerName?: string;
   items: CartItem[];
   subtotal: number;
   discount: number;
@@ -69,7 +75,6 @@ export interface TableInfo {
   capacity: number;
   status: TableStatus;
   guestCount?: number;
-  activeOrder?: CartItem[];
   elapsedSeconds?: number;
   totalBill?: number;
 }
@@ -78,9 +83,11 @@ export interface PrinterConfig {
   name: string;
   macAddress: string;
   connected: boolean;
+  battery?: number;
   paperSize: '58mm' | '80mm';
   printLogo: boolean;
   printAddress: boolean;
-  printToppingDetails: boolean;
+  printWhatsapp: boolean;
+  printEmail: boolean;
   footerText: string;
 }

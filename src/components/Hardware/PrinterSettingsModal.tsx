@@ -1,252 +1,237 @@
 import React, { useState } from 'react';
-import { X, Printer, Bluetooth, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Bluetooth, Loader2, Printer, RefreshCw, X } from 'lucide-react';
 import { PrinterConfig } from '../../types';
+import { cn } from '../../utils/cn';
+import { Modal } from '../ui/Modal';
 
 interface PrinterSettingsModalProps {
   config: PrinterConfig;
-  onSaveConfig: (newConfig: PrinterConfig) => void;
+  onSaveConfig: (config: PrinterConfig) => void;
   onClose: () => void;
 }
 
-export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({
-  config,
-  onSaveConfig,
-  onClose,
-}) => {
-  const [currentConfig, setCurrentConfig] = useState<PrinterConfig>({ ...config });
-  const [isScanning, setIsScanning] = useState<boolean>(false);
-  const [testPrintDone, setTestPrintDone] = useState<boolean>(false);
+interface Device {
+  name: string;
+  macAddress: string;
+  battery?: number;
+}
 
-  const mockDevices = [
-    { name: 'RPP02N-Thermal-58', mac: '66:32:B1:4C:90:11' },
-    { name: 'Zjiang-5805DD', mac: '11:22:33:44:55:66' },
-    { name: 'Epson-TM-T82X', mac: 'AA:BB:CC:DD:EE:FF' },
-  ];
+const KNOWN_DEVICES: Device[] = [
+  { name: 'RPP02N Thermal 58', macAddress: '66:32:B1:4C:90:11', battery: 82 },
+  { name: 'Zjiang 5805DD', macAddress: '11:22:33:44:55:66' },
+];
+const FOUND_ON_SCAN: Device = { name: 'Panda PRJ-80', macAddress: 'A4:C1:38:0E:22:7B', battery: 64 };
+
+const SAMPLE_LINES: [string, string][] = [
+  ['2 Indomie Aceh', '24.000'],
+  ['1 Indomie Soto', '11.000'],
+  ['1 Es Teh Jumbo', '5.000'],
+];
+
+/** V2 · 05 — receipt preview on the left, Bluetooth device + paper width on the right. */
+export const PrinterSettingsModal: React.FC<PrinterSettingsModalProps> = ({ config, onSaveConfig, onClose }) => {
+  const [draft, setDraft] = useState<PrinterConfig>({ ...config });
+  const [devices, setDevices] = useState<Device[]>(KNOWN_DEVICES);
+  const [scanning, setScanning] = useState(false);
+  const [testState, setTestState] = useState<'idle' | 'printing' | 'done'>('idle');
 
   const handleScan = () => {
-    setIsScanning(true);
-    setTimeout(() => {
-      setIsScanning(false);
-    }, 1200);
+    setScanning(true);
+    window.setTimeout(() => {
+      setDevices((prev) => (prev.some((d) => d.macAddress === FOUND_ON_SCAN.macAddress) ? prev : [...prev, FOUND_ON_SCAN]));
+      setScanning(false);
+    }, 1400);
   };
+
+  const connect = (d: Device) =>
+    setDraft((prev) => ({ ...prev, name: d.name, macAddress: d.macAddress, battery: d.battery, connected: true }));
 
   const handleTestPrint = () => {
-    setTestPrintDone(true);
-    setTimeout(() => {
-      setTestPrintDone(false);
-    }, 2000);
+    setTestState('printing');
+    window.setTimeout(() => setTestState('done'), 1200);
   };
 
-  const handleSave = () => {
-    onSaveConfig(currentConfig);
-    onClose();
-  };
+  const dash = '-'.repeat(draft.paperSize === '58mm' ? 26 : 36);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-[#1c1917] rounded-2xl border border-[#2b2520] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
-        {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-[#2b2520] flex items-center justify-between bg-[#1a1714]">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-warm-amber">
-              <Printer className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-base font-bold text-white">
-                Konektivitas Printer Thermal Bluetooth
-              </h3>
-              <p className="text-xs text-ink-muted">
-                Dukungan driver cetak ESC/POS universal 58mm & 80mm
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#26221d] hover:bg-[#383129] flex items-center justify-center text-ink-muted hover:text-white"
-          >
-            <X className="w-4 h-4" />
-          </button>
+    <Modal
+      labelledBy="printer-title"
+      onClose={onClose}
+      className="w-full max-w-[760px] md:h-[580px] md:flex-row rounded-[20px] bg-w-card border border-w-line text-w-ink"
+    >
+      <aside className="hidden md:flex w-[280px] shrink-0 flex-col items-center gap-4 p-6 bg-w-sunk">
+        <div className="w-full flex items-center justify-between">
+          <span className="text-[13px] font-bold">Pratinjau struk</span>
+          <span className="text-xs font-semibold text-w-ink-2">{draft.paperSize.replace('mm', ' mm')}</span>
         </div>
-
-        {/* Body */}
-        <div className="p-5 space-y-5 overflow-y-auto max-h-[75vh] text-xs">
-          {/* Section: Bluetooth Device Pairing */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px]">
-                Perangkat Bluetooth Terdeteksi
-              </label>
-              <button
-                type="button"
-                onClick={handleScan}
-                disabled={isScanning}
-                className="flex items-center gap-1 text-white font-medium hover:text-warm-amber disabled:opacity-50"
-              >
-                <RefreshCw className={`w-3 h-3 ${isScanning ? 'animate-spin' : ''}`} />
-                <span>{isScanning ? 'Memindai...' : 'Pindai Ulang'}</span>
-              </button>
-            </div>
-
-            <div className="space-y-2">
-              {mockDevices.map((device) => {
-                const isConnected = currentConfig.name === device.name && currentConfig.connected;
-                return (
-                  <div
-                    key={device.mac}
-                    className={`p-3 rounded-xl border flex items-center justify-between transition-all ${
-                      isConnected
-                        ? 'bg-[#064e3b]/50 border-[#047857]'
-                        : 'bg-[#141210] border-border'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center ${
-                          isConnected
-                            ? 'bg-[#10b981] text-[#12100e]'
-                            : 'bg-[#26221d] text-ink-muted'
-                        }`}
-                      >
-                        <Bluetooth className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-white text-xs">
-                          {device.name}
-                        </p>
-                        <p className="text-[10px] text-ink-muted font-mono">
-                          MAC: {device.mac}
-                        </p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setCurrentConfig((prev) => ({
-                          ...prev,
-                          name: device.name,
-                          macAddress: device.mac,
-                          connected: !isConnected,
-                        }));
-                      }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                        isConnected
-                          ? 'bg-[#881337] text-white border border-red-800 hover:bg-rose-900'
-                          : 'bg-warm-amber text-[#12100e] hover:bg-amber-500 font-bold'
-                      }`}
-                    >
-                      {isConnected ? 'Putuskan' : 'Hubungkan'}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Section: Paper Width Selection */}
-          <div>
-            <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px] block mb-2">
-              Ukuran Lebar Kertas Thermal
-            </label>
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                type="button"
-                onClick={() => setCurrentConfig((prev) => ({ ...prev, paperSize: '58mm' }))}
-                className={`p-3 rounded-xl border text-left transition-all ${
-                  currentConfig.paperSize === '58mm'
-                    ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs font-bold'
-                    : 'bg-[#141210] border-border text-white hover:bg-[#26221d]'
-                }`}
-              >
-                <div className="text-xs">58mm (32 Karakter)</div>
-                <div className={`text-[10px] mt-0.5 font-normal ${currentConfig.paperSize === '58mm' ? 'text-[#12100e]/80' : 'text-ink-muted'}`}>
-                  Rekomendasi printer saku kasir Bluetooth
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setCurrentConfig((prev) => ({ ...prev, paperSize: '80mm' }))}
-                className={`p-3 rounded-xl border text-left transition-all ${
-                  currentConfig.paperSize === '80mm'
-                    ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs font-bold'
-                    : 'bg-[#141210] border-border text-white hover:bg-[#26221d]'
-                }`}
-              >
-                <div className="text-xs">80mm (48 Karakter)</div>
-                <div className={`text-[10px] mt-0.5 font-normal ${currentConfig.paperSize === '80mm' ? 'text-[#12100e]/80' : 'text-ink-muted'}`}>
-                  Standar printer kasir desktop USB/LAN
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Section: Receipt Content Toggles */}
-          <div className="space-y-2 pt-1 border-t border-border">
-            <label className="font-semibold text-warm-amber uppercase tracking-wider text-[11px] block">
-              Format Konten Struk
-            </label>
-
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={currentConfig.printLogo}
-                onChange={(e) => setCurrentConfig((prev) => ({ ...prev, printLogo: e.target.checked }))}
-                className="w-4 h-4 rounded accent-warm-amber"
-              />
-              <span className="text-white">Cetak Header Logo Toko</span>
-            </label>
-
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={currentConfig.printToppingDetails}
-                onChange={(e) => setCurrentConfig((prev) => ({ ...prev, printToppingDetails: e.target.checked }))}
-                className="w-4 h-4 rounded accent-warm-amber"
-              />
-              <span className="text-white">Cetak Rincian Racikan Topping & Cabai</span>
-            </label>
-          </div>
+        <div
+          className={cn(
+            'flex flex-col gap-2 px-3.5 py-4 bg-white shadow-[0_6px_16px_rgba(28,25,23,0.08)] font-mono text-[9px] text-[#2A2723] transition-[width]',
+            draft.paperSize === '58mm' ? 'w-[184px]' : 'w-[232px]',
+          )}
+          aria-label="Contoh struk"
+        >
+          <p className="text-center text-[11px] font-bold">WARMINDO 88</p>
+          <p className="text-center text-[#6B655D]">Jl. Kemang Raya No. 88</p>
+          <p className="text-[#9C958A] overflow-hidden whitespace-nowrap">{dash}</p>
+          {SAMPLE_LINES.map(([l, r]) => (
+            <p key={l} className="flex justify-between">
+              <span>{l}</span>
+              <span>{r}</span>
+            </p>
+          ))}
+          <p className="text-[#9C958A] overflow-hidden whitespace-nowrap">{dash}</p>
+          <p className="flex justify-between font-bold">
+            <span>TOTAL</span>
+            <span>40.000</span>
+          </p>
+          <p className="flex justify-between">
+            <span>TUNAI</span>
+            <span>50.000</span>
+          </p>
+          <p className="flex justify-between">
+            <span>KEMBALI</span>
+            <span>10.000</span>
+          </p>
+          <p className="text-[#9C958A] overflow-hidden whitespace-nowrap">{dash}</p>
+          <p className="text-center">Terima kasih!</p>
         </div>
+        <div className="flex-1" />
+        <button
+          type="button"
+          onClick={handleTestPrint}
+          disabled={!draft.connected || testState === 'printing'}
+          className="w-full h-11 flex items-center justify-center gap-2 rounded-[10px] bg-w-card border border-w-line text-sm font-semibold hover:border-w-line-strong disabled:opacity-50"
+        >
+          {testState === 'printing' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Printer className="w-4 h-4" />}
+          <span aria-live="polite">
+            {testState === 'printing' ? 'Mencetak…' : testState === 'done' ? 'Terkirim · cetak lagi' : 'Cetak uji coba'}
+          </span>
+        </button>
+      </aside>
 
-        {/* Footer Actions */}
-        <div className="p-4 bg-[#141210] border-t border-[#2b2520] flex items-center justify-between gap-2">
+      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-6 p-7">
+        <div className="flex items-center gap-3">
+          <h2 id="printer-title" className="flex-1 font-display text-2xl font-bold">
+            Printer struk
+          </h2>
           <button
             type="button"
-            onClick={handleTestPrint}
-            className="px-3.5 py-2 rounded-xl border border-border bg-[#231f1a] hover:bg-[#2c2620] text-xs font-semibold text-white flex items-center gap-1.5 transition-colors"
+            onClick={onClose}
+            aria-label="Tutup"
+            className="w-9 h-9 flex items-center justify-center rounded-full bg-w-paper hover:bg-w-sunk"
           >
-            {testPrintDone ? (
-              <>
-                <CheckCircle2 className="w-3.5 h-3.5 text-status-positive" />
-                <span className="text-status-positive font-bold">Test Berhasil!</span>
-              </>
-            ) : (
-              <>
-                <Printer className="w-3.5 h-3.5 text-warm-amber" />
-                <span>Test Print</span>
-              </>
-            )}
+            <X className="w-[18px] h-[18px]" />
           </button>
+        </div>
 
-          <div className="flex items-center gap-2">
+        <section className="flex flex-col gap-2.5">
+          <div className="flex items-center justify-between">
+            <h3 className="text-[13px] font-bold">Perangkat Bluetooth</h3>
             <button
               type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-ink-muted hover:text-white transition-colors"
+              onClick={handleScan}
+              disabled={scanning}
+              className="flex items-center gap-1.5 text-[13px] font-semibold text-w-ink-2 hover:text-w-ink disabled:opacity-60"
             >
-              Tutup
-            </button>
-            <button
-              type="button"
-              onClick={handleSave}
-              className="px-5 py-2 rounded-xl bg-warm-amber hover:bg-amber-500 text-[#12100e] text-xs font-bold shadow-xs transition-colors"
-            >
-              Simpan Pengaturan
+              <RefreshCw className={cn('w-3.5 h-3.5', scanning && 'animate-spin')} aria-hidden />
+              {scanning ? 'Memindai…' : 'Pindai ulang'}
             </button>
           </div>
+          <ul className="flex flex-col gap-2.5">
+            {devices.map((d) => {
+              const active = draft.connected && draft.macAddress === d.macAddress;
+              return (
+                <li
+                  key={d.macAddress}
+                  className={cn(
+                    'flex items-center gap-3.5 px-4 py-3.5 rounded-[14px] border',
+                    active ? 'bg-w-leaf-soft border-w-leaf border-[1.5px]' : 'bg-w-card border-w-line',
+                  )}
+                >
+                  <span
+                    className={cn(
+                      'w-10 h-10 shrink-0 rounded-[10px] flex items-center justify-center',
+                      active ? 'bg-w-leaf text-white' : 'bg-w-paper text-w-ink-2',
+                    )}
+                  >
+                    <Bluetooth className="w-[18px] h-[18px]" aria-hidden />
+                  </span>
+                  <span className="flex-1 min-w-0 flex flex-col gap-0.5">
+                    <span className="text-[15px] font-bold">{d.name}</span>
+                    <span className={cn('text-xs', active ? 'text-w-leaf' : 'text-w-ink-2')}>
+                      {active ? `Terhubung${d.battery ? ` · Baterai ${d.battery}%` : ''}` : d.macAddress}
+                    </span>
+                  </span>
+                  {active ? (
+                    <button
+                      type="button"
+                      onClick={() => setDraft((prev) => ({ ...prev, connected: false }))}
+                      className="px-3.5 py-2 rounded-[9px] border border-w-leaf text-[13px] font-bold text-w-leaf hover:bg-w-leaf/10"
+                    >
+                      Putuskan
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => connect(d)}
+                      className="px-3.5 py-2 rounded-[9px] bg-w-ink text-[13px] font-bold text-white hover:bg-black"
+                    >
+                      Hubungkan
+                    </button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <section className="flex flex-col gap-2.5">
+          <h3 className="text-[13px] font-bold" id="paper-width">
+            Lebar kertas
+          </h3>
+          <div role="radiogroup" aria-labelledby="paper-width" className="flex p-1 rounded-xl bg-w-paper">
+            {(
+              [
+                ['58mm', '58 mm', '32 karakter'],
+                ['80mm', '80 mm', '48 karakter'],
+              ] as const
+            ).map(([value, label, chars]) => {
+              const active = draft.paperSize === value;
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  onClick={() => setDraft((prev) => ({ ...prev, paperSize: value }))}
+                  className={cn(
+                    'flex-1 h-[52px] flex flex-col items-center justify-center rounded-[9px] transition-colors',
+                    active && 'bg-w-card shadow-[0_1px_3px_rgba(28,25,23,0.12)]',
+                  )}
+                >
+                  <span className="text-[15px] font-bold">{label}</span>
+                  <span className="text-xs text-w-ink-2">{chars}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        <div className="flex-1" />
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={() => {
+              onSaveConfig(draft);
+              onClose();
+            }}
+            className="h-12 px-6 rounded-xl bg-w-yolk text-[15px] font-extrabold hover:brightness-105"
+          >
+            Simpan
+          </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };

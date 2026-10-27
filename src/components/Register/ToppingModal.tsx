@@ -1,275 +1,234 @@
 import React, { useState } from 'react';
-import { X, Flame, Check, Plus, Minus } from 'lucide-react';
-import { MenuItem, SelectedCustomization, Topping } from '../../types';
-import { TOPPINGS_AVAILABLE, EGGS_AVAILABLE } from '../../data/mockData';
-import { formatRupiah } from '../../utils/format';
+import { Check, Flame, Minus, Plus, X } from 'lucide-react';
+import { Doneness, EggOption, MenuItem, SelectedCustomization, Topping } from '../../types';
+import { formatNumber, formatRupiah } from '../../utils/format';
+import { cn } from '../../utils/cn';
+import { Modal } from '../ui/Modal';
+import { CATEGORY_ICONS } from './shared';
 
 interface ToppingModalProps {
   item: MenuItem;
+  eggs: EggOption[];
+  toppings: Topping[];
   onClose: () => void;
-  onConfirm: (customization: SelectedCustomization) => void;
+  onConfirm: (customization: SelectedCustomization, quantity: number) => void;
 }
 
-export const ToppingModal: React.FC<ToppingModalProps> = ({
-  item,
-  onClose,
-  onConfirm,
-}) => {
-  const isMie = item.category === 'kuah' || item.category === 'goreng';
+const DONENESS: Doneness[] = ['Kenyal', 'Lembut', 'Kering'];
+const SPICE_LEVELS = [0, 1, 2, 3, 4, 5];
+const NO_EGG = 'none';
 
-  const [doneness, setDoneness] = useState<SelectedCustomization['doneness']>(
-    item.name.toLowerCase().includes('nyemek') || item.name.toLowerCase().includes('bangladesh') 
-      ? 'Nyemek Kental Gurih' 
-      : 'Kenyal (Standar)'
-  );
-  const [selectedEggId, setSelectedEggId] = useState<string>('egg_ceplok_half');
-  const [selectedToppings, setSelectedToppings] = useState<Topping[]>([
-    TOPPINGS_AVAILABLE[0], // default Kornet
-  ]);
-  const [spicinessLevel, setSpicinessLevel] = useState<number>(3);
-  const [notes, setNotes] = useState<string>('');
+/** V2 · 02 — "Racik pesanan": doneness, egg, toppings, spice level and portion count for a mie bowl. */
+export const ToppingModal: React.FC<ToppingModalProps> = ({ item, eggs, toppings, onClose, onConfirm }) => {
+  const [doneness, setDoneness] = useState<Doneness>('Kenyal');
+  const [eggId, setEggId] = useState<string>(eggs[0]?.id ?? NO_EGG);
+  const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
+  const [spice, setSpice] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
-  const selectedEgg = EGGS_AVAILABLE.find((e) => e.id === selectedEggId);
-  const eggPrice = selectedEgg ? selectedEgg.price : 0;
-  const toppingsPrice = selectedToppings.reduce((sum, t) => sum + t.price, 0);
-  const totalPrice = item.basePrice + eggPrice + toppingsPrice;
+  const egg = eggs.find((e) => e.id === eggId);
+  const unitPrice = item.basePrice + (egg?.price ?? 0) + selectedToppings.reduce((s, t) => s + t.price, 0);
+  const Icon = CATEGORY_ICONS[item.category];
 
-  const toggleTopping = (topping: Topping) => {
-    setSelectedToppings((prev) =>
-      prev.some((t) => t.id === topping.id)
-        ? prev.filter((t) => t.id !== topping.id)
-        : [...prev, topping]
-    );
-  };
+  const toggleTopping = (t: Topping) =>
+    setSelectedToppings((prev) => (prev.some((p) => p.id === t.id) ? prev.filter((p) => p.id !== t.id) : [...prev, t]));
 
-  const handleSave = () => {
-    onConfirm({
-      doneness,
-      egg: selectedEgg?.name,
-      eggPrice,
-      toppings: selectedToppings,
-      spicinessLevel,
-      notes,
-    });
-  };
+  const eggOptions = [
+    ...eggs.map((e) => ({ id: e.id, name: e.name, price: `+${formatNumber(e.price)}` })),
+    { id: NO_EGG, name: 'Tanpa telur', price: 'Gratis' },
+  ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-[#1c1917] rounded-2xl border border-[#2b2520] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
-        {/* Modal Header */}
-        <div className="px-5 py-4 border-b border-[#2b2520] flex items-center justify-between bg-[#1a1714] sticky top-0 z-10">
-          <div className="flex items-center gap-2.5">
-            <span className="text-2xl p-1 bg-[#26221d] rounded-lg border border-[#383129]">{item.imageIcon}</span>
-            <div>
-              <h2 className="text-base font-bold text-white">
-                Racikan Warisan: {item.name}
-              </h2>
-              <p className="text-xs text-ink-muted">
-                Kustomisasi kematangan, telur bebek/ayam, dan level cabai rawit
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#26221d] hover:bg-[#383129] flex items-center justify-center text-ink-muted hover:text-white transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+    <Modal
+      labelledBy="racik-title"
+      onClose={onClose}
+      className="w-full max-w-[480px] rounded-[20px] bg-w-night-2 border border-w-night-line text-w-night-text"
+    >
+      <div
+        className="h-[150px] shrink-0 flex justify-end items-start p-4 bg-w-night-3 bg-cover bg-center relative"
+        style={item.image ? { backgroundImage: `url(${item.image})` } : undefined}
+      >
+        {!item.image && <Icon className="absolute inset-0 m-auto w-10 h-10 text-w-night-line" aria-hidden />}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup"
+          className="relative w-9 h-9 flex items-center justify-center rounded-full bg-w-night/80 hover:bg-w-night"
+        >
+          <X className="w-[18px] h-[18px]" />
+        </button>
+      </div>
+
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="px-5 pt-4 pb-1 flex flex-col gap-0.5">
+          <h2 id="racik-title" className="font-display text-[22px] font-bold">
+            {item.name}
+          </h2>
+          <p className="text-[13px] text-w-night-muted">Harga dasar {formatRupiah(item.basePrice)}</p>
         </div>
 
-        {/* Modal Scrollable Body */}
-        <div className="p-5 overflow-y-auto space-y-5 text-sm">
-          {/* Section: Kematangan Mie */}
-          {isMie && (
-            <div>
-              <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
-                Konsistensi Kuah & Kematangan
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {(['Kenyal (Standar)', 'Matang Lembut', 'Kering / Tiris', 'Nyemek Kental Gurih'] as const).map(
-                  (level) => {
-                    const isSelected = doneness === level;
-                    return (
-                      <button
-                        key={level}
-                        type="button"
-                        onClick={() => setDoneness(level)}
-                        className={`p-2.5 rounded-xl border text-left text-xs font-semibold transition-all ${
-                          isSelected
-                            ? 'bg-warm-amber text-[#12100e] border-warm-amber shadow-xs'
-                            : 'bg-[#26221d] text-ink-body border-[#383129] hover:bg-[#2d2822]'
-                        }`}
-                      >
-                        {level}
-                      </button>
-                    );
-                  }
-                )}
-              </div>
+        <div className="flex flex-col gap-5 px-5 pt-3 pb-5">
+          <Section title="Kematangan mie">
+            <div role="radiogroup" aria-label="Kematangan mie" className="flex p-1 rounded-xl bg-w-night">
+              {DONENESS.map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  role="radio"
+                  aria-checked={doneness === d}
+                  onClick={() => setDoneness(d)}
+                  className={cn(
+                    'flex-1 h-10 rounded-[9px] text-sm font-bold transition-colors',
+                    doneness === d ? 'bg-w-yolk text-w-ink' : 'hover:bg-w-night-3',
+                  )}
+                >
+                  {d}
+                </button>
+              ))}
             </div>
-          )}
+          </Section>
 
-          {/* Section: Level Pedas Cabai Rawit */}
-          <div className="bg-[#141210] rounded-xl p-3.5 border border-[#2b2520]">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-white flex items-center gap-1.5">
-                <Flame className="w-4 h-4 text-status-negative" />
-                Level Pedas Cabai Rawit Merah
-              </span>
-              <span className="text-xs font-bold font-mono text-status-negative px-2 py-0.5 rounded bg-status-negative-bg border border-red-900/40">
-                {spicinessLevel === 0 ? 'Lv.0 (Santai)' : `Lv.${spicinessLevel} (${spicinessLevel} Rawit 🔥)`}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                disabled={spicinessLevel <= 0}
-                onClick={() => setSpicinessLevel((p) => Math.max(0, p - 1))}
-                className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-white hover:bg-[#383129] disabled:opacity-40"
-              >
-                <Minus className="w-3.5 h-3.5" />
-              </button>
-
-              <input
-                type="range"
-                min="0"
-                max="10"
-                value={spicinessLevel}
-                onChange={(e) => setSpicinessLevel(Number(e.target.value))}
-                className="flex-1 accent-status-negative cursor-pointer"
-              />
-
-              <button
-                type="button"
-                disabled={spicinessLevel >= 10}
-                onClick={() => setSpicinessLevel((p) => Math.min(10, p + 1))}
-                className="w-8 h-8 rounded-lg bg-[#26221d] border border-[#383129] flex items-center justify-center text-white hover:bg-[#383129] disabled:opacity-40"
-              >
-                <Plus className="w-3.5 h-3.5" />
-              </button>
-            </div>
-            <div className="flex justify-between text-[10px] text-ink-muted mt-1 px-1">
-              <span>0 (Anak Bawang)</span>
-              <span>3 (Sedang)</span>
-              <span>5 (Nampol)</span>
-              <span className="text-status-negative font-semibold">10 (Kesurupan 🔥)</span>
-            </div>
-          </div>
-
-          {/* Section: Pilihan Telur */}
-          {isMie && (
-            <div>
-              <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
-                Pilihan Racikan Telur
-              </label>
-              <div className="space-y-1.5">
-                {EGGS_AVAILABLE.map((egg) => {
-                  const isSelected = selectedEggId === egg.id;
-                  return (
-                    <button
-                      key={egg.id}
-                      type="button"
-                      onClick={() => setSelectedEggId(egg.id)}
-                      className={`w-full p-2.5 rounded-xl border text-left flex items-center justify-between text-xs transition-all ${
-                        isSelected
-                          ? 'bg-[#2d2822] border-warm-amber text-white font-semibold'
-                          : 'bg-[#231f1a] border-[#2b2520] text-ink-body hover:bg-[#28231d]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-warm-amber bg-warm-amber text-[#12100e]' : 'border-[#383129]'
-                          }`}
-                        >
-                          {isSelected && <Check className="w-2.5 h-2.5" />}
-                        </div>
-                        <span>{egg.name}</span>
-                      </div>
-                      <span className="font-mono text-warm-amber">
-                        +{formatRupiah(egg.price)}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Section: Ekstra Topping */}
-          <div>
-            <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-2">
-              Ekstra Topping Tambahan (Bisa Pilih Banyak)
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {TOPPINGS_AVAILABLE.map((top) => {
-                const isSelected = selectedToppings.some((t) => t.id === top.id);
+          <Section title="Telur" hint="Pilih satu">
+            <div role="radiogroup" aria-label="Telur" className="flex gap-2">
+              {eggOptions.map((o) => {
+                const active = eggId === o.id;
                 return (
                   <button
-                    key={top.id}
+                    key={o.id}
                     type="button"
-                    onClick={() => toggleTopping(top)}
-                    className={`p-2.5 rounded-xl border text-left flex items-center justify-between text-xs transition-all ${
-                      isSelected
-                        ? 'bg-[#2d2822] border-warm-amber text-white font-semibold'
-                        : 'bg-[#231f1a] border-[#2b2520] text-ink-body hover:bg-[#28231d]'
-                    }`}
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => setEggId(o.id)}
+                    className={cn(
+                      'flex-1 flex flex-col items-start gap-0.5 px-3 py-2.5 rounded-xl text-left outline -outline-offset-1',
+                      active ? 'bg-w-yolk/10 outline-2 outline-w-yolk' : 'bg-w-night-3 outline-1 outline-w-night-line',
+                    )}
                   >
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          isSelected ? 'border-warm-amber bg-warm-amber text-[#12100e]' : 'border-[#383129]'
-                        }`}
-                      >
-                        {isSelected && <Check className="w-2.5 h-2.5" />}
-                      </div>
-                      <span className="line-clamp-1">{top.name}</span>
-                    </div>
-                    <span className="font-mono text-warm-amber shrink-0 ml-1">
-                      +{formatRupiah(top.price)}
-                    </span>
+                    <span className="text-[13px] font-semibold">{o.name}</span>
+                    <span className={cn('text-xs', active ? 'text-w-yolk' : 'text-w-night-muted')}>{o.price}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
+          </Section>
 
-          {/* Section: Catatan Khusus */}
-          <div>
-            <label className="block text-xs font-semibold text-warm-amber uppercase tracking-wider mb-1.5">
-              Catatan Masakan (Opsional)
-            </label>
-            <input
-              type="text"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Contoh: Kuah dibanyakin, taburan bawang goreng dobel..."
-              className="w-full h-9 px-3 rounded-xl bg-[#141210] border border-[#2b2520] text-xs text-white placeholder:text-ink-muted focus:outline-none focus:ring-1 focus:ring-warm-amber"
-            />
-          </div>
-        </div>
+          {toppings.length > 0 && (
+            <Section title="Topping tambahan" hint="Bisa lebih dari satu">
+              <div className="flex flex-col gap-2.5">
+                {toppings.map((t) => {
+                  const checked = selectedToppings.some((s) => s.id === t.id);
+                  return (
+                    <button
+                      key={t.id}
+                      type="button"
+                      role="checkbox"
+                      aria-checked={checked}
+                      onClick={() => toggleTopping(t)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-w-night-3 text-left hover:bg-w-night-line/70"
+                    >
+                      <span
+                        className={cn(
+                          'w-[22px] h-[22px] rounded-md flex items-center justify-center',
+                          checked ? 'bg-w-yolk' : 'border-[1.5px] border-w-night-muted',
+                        )}
+                      >
+                        {checked && <Check className="w-3.5 h-3.5 text-w-ink" strokeWidth={3} />}
+                      </span>
+                      <span className="flex-1 text-sm font-semibold">{t.name}</span>
+                      <span className="text-[13px] text-w-night-muted">+{formatNumber(t.price)}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </Section>
+          )}
 
-        {/* Modal Footer */}
-        <div className="p-4 bg-[#141210] border-t border-[#2b2520] flex items-center justify-between gap-3">
-          <div>
-            <span className="text-[11px] text-ink-muted block leading-none">
-              Harga Satuan Racikan
-            </span>
-            <span className="text-base font-bold text-warm-amber font-mono tabular-nums">
-              {formatRupiah(totalPrice)}
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleSave}
-            className="px-5 py-2.5 rounded-xl bg-warm-amber hover:bg-amber-500 text-[#12100e] text-xs sm:text-sm font-bold transition-all shadow-xs flex items-center gap-2"
-          >
-            <span>Tambahkan ke Tiket</span>
-          </button>
+          <Section title="Level pedas" hint={spice ? `Level ${spice}` : 'Tidak pedas'}>
+            <div role="radiogroup" aria-label="Level pedas" className="flex gap-1.5">
+              {SPICE_LEVELS.map((lvl) => {
+                const active = spice === lvl;
+                const below = lvl > 0 && lvl < spice;
+                return (
+                  <button
+                    key={lvl}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    aria-label={lvl ? `Level ${lvl}` : 'Tidak pedas'}
+                    onClick={() => setSpice(lvl)}
+                    className={cn(
+                      'flex-1 h-11 flex items-center justify-center gap-1 rounded-[10px] text-[13px] font-bold transition-colors',
+                      active && lvl > 0
+                        ? 'bg-w-chili text-white'
+                        : below
+                          ? 'bg-w-chili/25 text-white'
+                          : active
+                            ? 'bg-w-night-line text-w-night-text'
+                            : 'bg-w-night-3 text-w-night-muted hover:text-w-night-text',
+                    )}
+                  >
+                    {lvl === 0 ? (
+                      <span className="text-xs font-semibold">Tidak</span>
+                    ) : (
+                      <>
+                        <Flame className="w-4 h-4" aria-hidden />
+                        {lvl}
+                      </>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </Section>
         </div>
       </div>
-    </div>
+
+      <div className="shrink-0 flex items-center gap-3 px-5 py-4 border-t border-w-night-line">
+        <div className="h-[52px] flex items-center rounded-xl bg-w-night-3">
+          <button
+            type="button"
+            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+            disabled={quantity === 1}
+            aria-label="Kurangi porsi"
+            className="w-11 h-full flex items-center justify-center disabled:opacity-40"
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <span className="w-5 text-center text-base font-extrabold tabular-nums" aria-live="polite">
+            {quantity}
+          </span>
+          <button
+            type="button"
+            onClick={() => setQuantity((q) => q + 1)}
+            aria-label="Tambah porsi"
+            className="w-11 h-full flex items-center justify-center"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={() =>
+            onConfirm({ doneness, egg, toppings: selectedToppings, spicinessLevel: spice }, quantity)
+          }
+          className="flex-1 h-[52px] flex items-center justify-between px-[18px] rounded-xl bg-w-yolk text-w-ink hover:brightness-105"
+        >
+          <span className="text-[15px] font-extrabold">Tambah ke pesanan</span>
+          <span className="font-display text-base font-extrabold tabular-nums">
+            {formatRupiah(unitPrice * quantity)}
+          </span>
+        </button>
+      </div>
+    </Modal>
   );
 };
+
+const Section: React.FC<{ title: string; hint?: string; children: React.ReactNode }> = ({ title, hint, children }) => (
+  <div className="flex flex-col gap-2.5">
+    <div className="flex justify-between">
+      <h3 className="text-[13px] font-bold tracking-[0.3px]">{title}</h3>
+      {hint && <span className="text-xs text-w-night-muted">{hint}</span>}
+    </div>
+    {children}
+  </div>
+);

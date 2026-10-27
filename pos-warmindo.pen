@@ -1425,7 +1425,8 @@
                               "fill": "$muted",
                               "content": "• Meja 04",
                               "fontFamily": "Inter",
-                              "fontSize": 13
+                              "fontSize": 13,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -1514,7 +1515,8 @@
                                   "width": 280,
                                   "content": "+ Telur Ceplok ½ Matang (4k), Rawit 5",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "frame",
@@ -1646,7 +1648,8 @@
                                   "width": 280,
                                   "content": "Manis Sedang, Es Banyak",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "frame",
@@ -1778,7 +1781,8 @@
                                   "width": 280,
                                   "content": "Cabai rawit hijau terpisah",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "frame",
@@ -1884,7 +1888,8 @@
                           "fill": "$muted",
                           "content": "Subtotal Pesanan",
                           "fontFamily": "Inter",
-                          "fontSize": 13
+                          "fontSize": 13,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -2181,7 +2186,8 @@
                   "fill": "#6b7280",
                   "content": "Pilih kematangan, telur, dan ekstra topping",
                   "fontFamily": "Inter",
-                  "fontSize": 12
+                  "fontSize": 12,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2384,7 +2390,8 @@
                       "fill": "$muted",
                       "content": "+4.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -2476,7 +2483,8 @@
                       "fill": "$muted",
                       "content": "+ Rp 3.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -2519,7 +2527,8 @@
                       "fill": "$muted",
                       "content": "Cabai Rawit Merah Iris",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -2735,7 +2744,8 @@
               "fill": "$muted",
               "content": "Struk #WMD-20261027-092",
               "fontFamily": "Inter",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -2765,7 +2775,8 @@
                   "fill": "$muted",
                   "content": "Total Tagihan",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
@@ -2791,7 +2802,8 @@
                   "fill": "$muted",
                   "content": "Uang Tunai Diterima",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
@@ -3240,7 +3252,8 @@
                       "fill": "$muted",
                       "content": "Performa operasional Warmindo 88 — Outlet Kemang",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -3601,7 +3614,8 @@
                           "fill": "$muted",
                           "content": "Puncak penjualan pada makan siang (12:00) dan nongkrong malam (21:00)",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -3626,7 +3640,8 @@
                           "fill": "$muted",
                           "content": "○ Kemarin",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -3706,7 +3721,8 @@
                           "fill": "$muted",
                           "content": "08:00",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -3714,7 +3730,8 @@
                           "fill": "$muted",
                           "content": "10:00",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -3731,7 +3748,8 @@
                           "fill": "$muted",
                           "content": "15:00",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -3739,7 +3757,8 @@
                           "fill": "$muted",
                           "content": "18:00",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -3756,7 +3775,8 @@
                           "fill": "$muted",
                           "content": "00:00",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -3817,7 +3837,8 @@
                           "fill": "$muted",
                           "content": "Urutkan: Omset",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -3879,7 +3900,8 @@
                                   "fill": "$muted",
                                   "content": "54 porsi",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -3945,7 +3967,8 @@
                                   "fill": "$muted",
                                   "content": "112 gelas",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -4011,7 +4034,8 @@
                                   "fill": "$muted",
                                   "content": "38 porsi",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -4077,7 +4101,8 @@
                                   "fill": "$muted",
                                   "content": "85 pcs",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -4143,7 +4168,8 @@
                                   "fill": "$muted",
                                   "content": "42 cangkir",
                                   "fontFamily": "Inter",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -4296,7 +4322,8 @@
                           "fill": "$muted",
                           "content": "Shift Pagi: Budi (62 Struk)",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -4393,7 +4420,8 @@
                       "fill": "$muted",
                       "content": "Dukungan driver cetak ESC/POS universal 58mm & 80mm",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -4518,7 +4546,8 @@
                           "fill": "$muted",
                           "content": "MAC: 66:32:B1:4C:90:11",
                           "fontFamily": "Roboto Mono",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -4543,7 +4572,8 @@
                       "fill": "$status-negative-text",
                       "content": "Putuskan",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -4603,7 +4633,8 @@
                           "fill": "$muted",
                           "content": "MAC: 11:22:33:44:55:66",
                           "fontFamily": "Roboto Mono",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -4692,7 +4723,8 @@
                       "fill": "#145aff",
                       "content": "Rekomendasi printer saku & mobile kasir",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -4727,7 +4759,8 @@
                       "fill": "$muted",
                       "content": "Printer desktop kasir standar resto",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -4869,7 +4902,8 @@
                       "fill": "#6b7280",
                       "content": "Kasir • Meja 04",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -4945,7 +4979,8 @@
                       "fill": "$muted",
                       "content": "Cari mie, minuman, topping...",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -4999,7 +5034,8 @@
                           "fill": "$text",
                           "content": "Goreng",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -5022,7 +5058,8 @@
                           "fill": "$text",
                           "content": "Kuah",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -5045,7 +5082,8 @@
                           "fill": "$text",
                           "content": "Minum",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -5604,7 +5642,8 @@
                   "fill": "$muted",
                   "content": "4 Item Dipilih",
                   "fontFamily": "Inter",
-                  "fontSize": 11
+                  "fontSize": 11,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
@@ -5996,7 +6035,8 @@
                       "fill": "$muted",
                       "content": "Atur produk, kategori, topping, dan ketersediaan",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -6403,7 +6443,8 @@
                       "fill": "$muted",
                       "content": "Cari nama menu...",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -6456,7 +6497,8 @@
                           "fill": "$muted",
                           "content": "84 produk",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -6586,7 +6628,8 @@
                               "width": 150,
                               "content": "Mie Instan",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6597,7 +6640,8 @@
                               "width": 120,
                               "content": "Rp 24.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6608,7 +6652,8 @@
                               "width": 80,
                               "content": "42",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6619,7 +6664,8 @@
                               "width": 150,
                               "content": "Aktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6660,7 +6706,8 @@
                               "width": 150,
                               "content": "Mie Instan",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6671,7 +6718,8 @@
                               "width": 120,
                               "content": "Rp 22.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6682,7 +6730,8 @@
                               "width": 80,
                               "content": "31",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6693,7 +6742,8 @@
                               "width": 150,
                               "content": "Aktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6734,7 +6784,8 @@
                               "width": 150,
                               "content": "Minuman",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6745,7 +6796,8 @@
                               "width": 120,
                               "content": "Rp 8.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6756,7 +6808,8 @@
                               "width": 80,
                               "content": "68",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6767,7 +6820,8 @@
                               "width": 150,
                               "content": "Aktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6808,7 +6862,8 @@
                               "width": 150,
                               "content": "Minuman",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6819,7 +6874,8 @@
                               "width": 120,
                               "content": "Rp 10.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6830,7 +6886,8 @@
                               "width": 80,
                               "content": "24",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6841,7 +6898,8 @@
                               "width": 150,
                               "content": "Aktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6882,7 +6940,8 @@
                               "width": 150,
                               "content": "Paket",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6893,7 +6952,8 @@
                               "width": 120,
                               "content": "Rp 35.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6904,7 +6964,8 @@
                               "width": 80,
                               "content": "12",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6915,7 +6976,8 @@
                               "width": 150,
                               "content": "Aktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6956,7 +7018,8 @@
                               "width": 150,
                               "content": "Camilan",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6967,7 +7030,8 @@
                               "width": 120,
                               "content": "Rp 3.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6978,7 +7042,8 @@
                               "width": 80,
                               "content": "8",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6989,7 +7054,8 @@
                               "width": 150,
                               "content": "Stok rendah",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7030,7 +7096,8 @@
                               "width": 150,
                               "content": "Minuman",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7041,7 +7108,8 @@
                               "width": 120,
                               "content": "Rp 12.000",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7052,7 +7120,8 @@
                               "width": 80,
                               "content": "0",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7063,7 +7132,8 @@
                               "width": 150,
                               "content": "Nonaktif",
                               "fontFamily": "Inter",
-                              "fontSize": 12
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -7130,7 +7200,8 @@
                               "fill": "$muted",
                               "content": "32 item",
                               "fontFamily": "Inter",
-                              "fontSize": 11
+                              "fontSize": 11,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7160,7 +7231,8 @@
                               "fill": "$muted",
                               "content": "21 item",
                               "fontFamily": "Inter",
-                              "fontSize": 11
+                              "fontSize": 11,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7190,7 +7262,8 @@
                               "fill": "$muted",
                               "content": "18 item",
                               "fontFamily": "Inter",
-                              "fontSize": 11
+                              "fontSize": 11,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7220,7 +7293,8 @@
                               "fill": "$muted",
                               "content": "13 item",
                               "fontFamily": "Inter",
-                              "fontSize": 11
+                              "fontSize": 11,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -7267,7 +7341,8 @@
                           "width": "fill_container",
                           "content": "Nonaktifkan menu saat bahan habis agar kasir tidak menerima pesanan yang tidak bisa dipenuhi.",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -7618,7 +7693,8 @@
                       "fill": "$muted",
                       "content": "Analisis penjualan dan ekspor data operasional",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -7922,7 +7998,8 @@
                           "fill": "$muted",
                           "content": "Per hari, produk, kategori",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -7989,7 +8066,8 @@
                           "fill": "$muted",
                           "content": "Omset, biaya, laba kotor",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -8056,7 +8134,8 @@
                           "fill": "$muted",
                           "content": "Shift, kasir, pembatalan",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -8123,7 +8202,8 @@
                           "fill": "$muted",
                           "content": "Rekap pajak & servis",
                           "fontFamily": "Inter",
-                          "fontSize": 11
+                          "fontSize": 11,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -8710,7 +8790,8 @@
                       "width": 190,
                       "content": "1–27 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8721,7 +8802,8 @@
                       "width": 130,
                       "content": "Excel",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8732,7 +8814,8 @@
                       "width": 180,
                       "content": "Owner",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8743,7 +8826,8 @@
                       "width": 160,
                       "content": "Selesai",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -8784,7 +8868,8 @@
                       "width": 190,
                       "content": "Oktober 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8795,7 +8880,8 @@
                       "width": 130,
                       "content": "PDF",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8806,7 +8892,8 @@
                       "width": 180,
                       "content": "Owner",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8817,7 +8904,8 @@
                       "width": 160,
                       "content": "Selesai",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -8858,7 +8946,8 @@
                       "width": 190,
                       "content": "Minggu ke-4",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8869,7 +8958,8 @@
                       "width": 130,
                       "content": "Excel",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8880,7 +8970,8 @@
                       "width": 180,
                       "content": "Manager",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8891,7 +8982,8 @@
                       "width": 160,
                       "content": "Selesai",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -8932,7 +9024,8 @@
                       "width": 190,
                       "content": "September 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8943,7 +9036,8 @@
                       "width": 130,
                       "content": "PDF",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8954,7 +9048,8 @@
                       "width": 180,
                       "content": "Owner",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -8965,7 +9060,8 @@
                       "width": 160,
                       "content": "Arsip",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -9314,7 +9410,8 @@
                       "fill": "$muted",
                       "content": "Pantau bahan baku, stok minimum, dan pergerakan persediaan",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -9600,7 +9697,8 @@
                       "fill": "#c2410c",
                       "content": "Prioritaskan mi instan, telur, kornet, minyak goreng, dan es batu sebelum shift malam.",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -9729,7 +9827,8 @@
                       "fill": "$muted",
                       "content": "Cari bahan...",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -9873,7 +9972,8 @@
                       "width": 160,
                       "content": "Bahan utama",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9884,7 +9984,8 @@
                       "width": 170,
                       "content": "18",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9895,7 +9996,8 @@
                       "width": 120,
                       "content": "24",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9906,7 +10008,8 @@
                       "width": 120,
                       "content": "bungkus",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9917,7 +10020,8 @@
                       "width": 150,
                       "content": "Stok rendah",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -9958,7 +10062,8 @@
                       "width": 160,
                       "content": "Protein",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9969,7 +10074,8 @@
                       "width": 170,
                       "content": "22",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9980,7 +10086,8 @@
                       "width": 120,
                       "content": "30",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -9991,7 +10098,8 @@
                       "width": 120,
                       "content": "butir",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10002,7 +10110,8 @@
                       "width": 150,
                       "content": "Stok rendah",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10043,7 +10152,8 @@
                       "width": 160,
                       "content": "Topping",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10054,7 +10164,8 @@
                       "width": 170,
                       "content": "8",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10065,7 +10176,8 @@
                       "width": 120,
                       "content": "12",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10076,7 +10188,8 @@
                       "width": 120,
                       "content": "kaleng",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10087,7 +10200,8 @@
                       "width": 150,
                       "content": "Stok rendah",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10128,7 +10242,8 @@
                       "width": 160,
                       "content": "Bahan dapur",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10139,7 +10254,8 @@
                       "width": 170,
                       "content": "4",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10150,7 +10266,8 @@
                       "width": 120,
                       "content": "8",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10161,7 +10278,8 @@
                       "width": 120,
                       "content": "liter",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10172,7 +10290,8 @@
                       "width": 150,
                       "content": "Stok rendah",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10213,7 +10332,8 @@
                       "width": 160,
                       "content": "Minuman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10224,7 +10344,8 @@
                       "width": 170,
                       "content": "0",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10235,7 +10356,8 @@
                       "width": 120,
                       "content": "10",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10246,7 +10368,8 @@
                       "width": 120,
                       "content": "kantong",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10257,7 +10380,8 @@
                       "width": 150,
                       "content": "Habis",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10298,7 +10422,8 @@
                       "width": 160,
                       "content": "Minuman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10309,7 +10434,8 @@
                       "width": 170,
                       "content": "46",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10320,7 +10446,8 @@
                       "width": 120,
                       "content": "20",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10331,7 +10458,8 @@
                       "width": 120,
                       "content": "pak",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10342,7 +10470,8 @@
                       "width": 150,
                       "content": "Aman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10383,7 +10512,8 @@
                       "width": 160,
                       "content": "Bahan dapur",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10394,7 +10524,8 @@
                       "width": 170,
                       "content": "28",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10405,7 +10536,8 @@
                       "width": 120,
                       "content": "10",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10416,7 +10548,8 @@
                       "width": 120,
                       "content": "kg",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10427,7 +10560,8 @@
                       "width": 150,
                       "content": "Aman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10468,7 +10602,8 @@
                       "width": 160,
                       "content": "Minuman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10479,7 +10614,8 @@
                       "width": 170,
                       "content": "16",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10490,7 +10626,8 @@
                       "width": 120,
                       "content": "8",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10501,7 +10638,8 @@
                       "width": 120,
                       "content": "pak",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -10512,7 +10650,8 @@
                       "width": 150,
                       "content": "Aman",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -10861,7 +11000,8 @@
                       "fill": "$muted",
                       "content": "Kelola pemasok dan pemesanan bahan baku",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11152,7 +11292,8 @@
                           "fill": "$muted",
                           "content": "dari Rp 36.500.000",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -11227,7 +11368,8 @@
                       "fill": "#374151",
                       "content": "98% tepat waktu · 12 pesanan · kualitas 4,9/5",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -11371,7 +11513,8 @@
                       "width": 240,
                       "content": "CV Sumber Makmur",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11382,7 +11525,8 @@
                       "width": 160,
                       "content": "27 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11393,7 +11537,8 @@
                       "width": 150,
                       "content": "Rp 2.450.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11404,7 +11549,8 @@
                       "width": 170,
                       "content": "Tempo 7 hari",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11415,7 +11561,8 @@
                       "width": 140,
                       "content": "Dikirim",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11456,7 +11603,8 @@
                       "width": 240,
                       "content": "Agen Indofood Jaya",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11467,7 +11615,8 @@
                       "width": 160,
                       "content": "26 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11478,7 +11627,8 @@
                       "width": 150,
                       "content": "Rp 3.180.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11489,7 +11639,8 @@
                       "width": 170,
                       "content": "Lunas",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11500,7 +11651,8 @@
                       "width": 140,
                       "content": "Diproses",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11541,7 +11693,8 @@
                       "width": 240,
                       "content": "Toko Telur Berkah",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11552,7 +11705,8 @@
                       "width": 160,
                       "content": "25 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11563,7 +11717,8 @@
                       "width": 150,
                       "content": "Rp 1.260.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11574,7 +11729,8 @@
                       "width": 170,
                       "content": "Lunas",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11585,7 +11741,8 @@
                       "width": 140,
                       "content": "Diterima",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11626,7 +11783,8 @@
                       "width": 240,
                       "content": "Distributor Minuman 88",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11637,7 +11795,8 @@
                       "width": 160,
                       "content": "24 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11648,7 +11807,8 @@
                       "width": 150,
                       "content": "Rp 2.870.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11659,7 +11819,8 @@
                       "width": 170,
                       "content": "Tempo 14 hari",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11670,7 +11831,8 @@
                       "width": 140,
                       "content": "Diterima",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11711,7 +11873,8 @@
                       "width": 240,
                       "content": "Pasar Segar Kemang",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11722,7 +11885,8 @@
                       "width": 160,
                       "content": "22 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11733,7 +11897,8 @@
                       "width": 150,
                       "content": "Rp 985.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11744,7 +11909,8 @@
                       "width": 170,
                       "content": "Lunas",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11755,7 +11921,8 @@
                       "width": 140,
                       "content": "Diterima",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11796,7 +11963,8 @@
                       "width": 240,
                       "content": "CV Kemasan Kita",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11807,7 +11975,8 @@
                       "width": 160,
                       "content": "20 Okt 2026",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11818,7 +11987,8 @@
                       "width": 150,
                       "content": "Rp 1.440.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11829,7 +11999,8 @@
                       "width": 170,
                       "content": "Lunas",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -11840,7 +12011,8 @@
                       "width": 140,
                       "content": "Diterima",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -12189,7 +12361,8 @@
                       "fill": "$muted",
                       "content": "Kelola tim, shift kerja, akses, dan performa kasir",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -12782,7 +12955,8 @@
                       "width": 170,
                       "content": "Kasir Senior",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12793,7 +12967,8 @@
                       "width": 150,
                       "content": "Pagi",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12804,7 +12979,8 @@
                       "width": 250,
                       "content": "62 struk · Rp 1,48 jt",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12815,7 +12991,8 @@
                       "width": 160,
                       "content": "Aktif",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -12856,7 +13033,8 @@
                       "width": 170,
                       "content": "Kasir",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12867,7 +13045,8 @@
                       "width": 150,
                       "content": "Malam",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12878,7 +13057,8 @@
                       "width": 250,
                       "content": "86 struk · Rp 1,94 jt",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12889,7 +13069,8 @@
                       "width": 160,
                       "content": "Aktif",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -12930,7 +13111,8 @@
                       "width": 170,
                       "content": "Dapur",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12941,7 +13123,8 @@
                       "width": 150,
                       "content": "Pagi",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12952,7 +13135,8 @@
                       "width": 250,
                       "content": "—",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -12963,7 +13147,8 @@
                       "width": 160,
                       "content": "Aktif",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -13004,7 +13189,8 @@
                       "width": 170,
                       "content": "Dapur",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13015,7 +13201,8 @@
                       "width": 150,
                       "content": "Malam",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13026,7 +13213,8 @@
                       "width": 250,
                       "content": "—",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13037,7 +13225,8 @@
                       "width": 160,
                       "content": "Aktif",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -13078,7 +13267,8 @@
                       "width": 170,
                       "content": "Supervisor",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13089,7 +13279,8 @@
                       "width": 150,
                       "content": "Sore",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13100,7 +13291,8 @@
                       "width": 250,
                       "content": "24 struk · Rp 620 rb",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13111,7 +13303,8 @@
                       "width": 160,
                       "content": "Admin",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -13152,7 +13345,8 @@
                       "width": 170,
                       "content": "Pelayan",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13163,7 +13357,8 @@
                       "width": 150,
                       "content": "Sore",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13174,7 +13369,8 @@
                       "width": 250,
                       "content": "—",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -13185,7 +13381,8 @@
                       "width": 160,
                       "content": "Aktif",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -13534,7 +13731,8 @@
                       "fill": "$muted",
                       "content": "Bandingkan performa dan operasional setiap cabang",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -13864,7 +14062,8 @@
                       "fill": "$muted",
                       "content": "Jakarta Selatan",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -13984,7 +14183,8 @@
                       "fill": "$muted",
                       "content": "Jakarta Selatan",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -14104,7 +14304,8 @@
                       "fill": "$muted",
                       "content": "Jakarta Selatan",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -14277,7 +14478,8 @@
                       "width": 190,
                       "content": "Rp 3.420.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14288,7 +14490,8 @@
                       "width": 140,
                       "content": "+14,2%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14299,7 +14502,8 @@
                       "width": 160,
                       "content": "Rp 23.108",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14310,7 +14514,8 @@
                       "width": 230,
                       "content": "Indomie Gr. Spesial",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14321,7 +14526,8 @@
                       "width": 100,
                       "content": "99,9%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -14362,7 +14568,8 @@
                       "width": 190,
                       "content": "Rp 2.610.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14373,7 +14580,8 @@
                       "width": 140,
                       "content": "+6,8%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14384,7 +14592,8 @@
                       "width": 160,
                       "content": "Rp 24.623",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14395,7 +14604,8 @@
                       "width": 230,
                       "content": "Paket Nongkrong",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14406,7 +14616,8 @@
                       "width": 100,
                       "content": "99,7%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -14447,7 +14658,8 @@
                       "width": 190,
                       "content": "Rp 1.830.000",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14458,7 +14670,8 @@
                       "width": 140,
                       "content": "+2,1%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14469,7 +14682,8 @@
                       "width": 160,
                       "content": "Rp 25.417",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14480,7 +14694,8 @@
                       "width": 230,
                       "content": "Es Teh Jumbo",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -14491,7 +14706,8 @@
                       "width": 100,
                       "content": "98,9%",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -14559,7 +14775,8 @@
                       "fill": "#374151",
                       "content": "Puncak transaksi pukul 21:00. Pertimbangkan tambah satu staf pada shift malam Jumat–Minggu.",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -14922,7 +15139,8 @@
                       "fill": "$muted",
                       "content": "Konfigurasi bisnis, transaksi, printer, dan hak akses",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -15295,7 +15513,8 @@
                           "fill": "$muted",
                           "content": "Informasi ini tampil pada struk, laporan, dan layar pelanggan.",
                           "fontFamily": "Inter",
-                          "fontSize": 12
+                          "fontSize": 12,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -15641,7 +15860,8 @@
                               "fill": "$muted",
                               "content": "Nama, alamat, dan nomor telepon akan dicetak otomatis.",
                               "fontFamily": "Inter",
-                              "fontSize": 11
+                              "fontSize": 11,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -18480,114 +18700,6 @@
           "children": [
             {
               "type": "frame",
-              "id": "flj0G",
-              "name": "Sec Kematangan mie",
-              "width": "fill_container",
-              "layout": "vertical",
-              "gap": 10,
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "oZTss",
-                  "name": "Sec Head",
-                  "width": "fill_container",
-                  "justifyContent": "space_between",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "BGAiH",
-                      "name": "Kematangan mie",
-                      "fill": "$w-night-text",
-                      "content": "Kematangan mie",
-                      "fontFamily": "$w-font",
-                      "fontSize": 13,
-                      "fontWeight": "700",
-                      "letterSpacing": 0.3
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "vHPCv",
-                  "name": "Doneness",
-                  "width": "fill_container",
-                  "fill": "$w-night",
-                  "cornerRadius": 12,
-                  "padding": 4,
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "vi0Eu",
-                      "name": "Opt Kenyal",
-                      "width": "fill_container",
-                      "height": 40,
-                      "fill": "$w-yolk",
-                      "cornerRadius": 9,
-                      "justifyContent": "center",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "jd7hf",
-                          "name": "Kenyal",
-                          "fill": "$w-ink",
-                          "content": "Kenyal",
-                          "fontFamily": "$w-font",
-                          "fontSize": 14,
-                          "fontWeight": "700"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "xKY14",
-                      "name": "Opt Lembut",
-                      "width": "fill_container",
-                      "height": 40,
-                      "cornerRadius": 9,
-                      "justifyContent": "center",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "pCuP4",
-                          "name": "Lembut",
-                          "fill": "$w-night-text",
-                          "content": "Lembut",
-                          "fontFamily": "$w-font",
-                          "fontSize": 14,
-                          "fontWeight": "700"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "r8xUa",
-                      "name": "Opt Kering",
-                      "width": "fill_container",
-                      "height": 40,
-                      "cornerRadius": 9,
-                      "justifyContent": "center",
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "d904ly",
-                          "name": "Kering",
-                          "fill": "$w-night-text",
-                          "content": "Kering",
-                          "fontFamily": "$w-font",
-                          "fontSize": 14,
-                          "fontWeight": "700"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "frame",
               "id": "PsqqF",
               "name": "Sec Telur",
               "width": "fill_container",
@@ -20075,7 +20187,8 @@
                       "fill": "#2A2723",
                       "content": "TUNAI",
                       "fontFamily": "JetBrains Mono",
-                      "fontSize": 9
+                      "fontSize": 9,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -20084,7 +20197,8 @@
                       "fill": "#2A2723",
                       "content": "50.000",
                       "fontFamily": "JetBrains Mono",
-                      "fontSize": 9
+                      "fontSize": 9,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -20102,7 +20216,8 @@
                       "fill": "#2A2723",
                       "content": "KEMBALI",
                       "fontFamily": "JetBrains Mono",
-                      "fontSize": 9
+                      "fontSize": 9,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -20111,7 +20226,8 @@
                       "fill": "#2A2723",
                       "content": "12.000",
                       "fontFamily": "JetBrains Mono",
-                      "fontSize": 9
+                      "fontSize": 9,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -22736,6 +22852,7 @@
                   "type": "frame",
                   "id": "CESjz",
                   "name": "Top Menu",
+                  "clip": true,
                   "width": "fill_container",
                   "height": "fill_container",
                   "fill": "$w-card",
@@ -22799,6 +22916,7 @@
                       "type": "frame",
                       "id": "BcS5R",
                       "name": "Rank List",
+                      "clip": true,
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 14,
@@ -22875,7 +22993,7 @@
                                       "id": "i5bf3",
                                       "name": "Fill",
                                       "fill": "$w-chili",
-                                      "width": 460,
+                                      "width": "fill_container",
                                       "height": 6
                                     }
                                   ]
@@ -22956,7 +23074,7 @@
                                       "id": "U4fs2",
                                       "name": "Fill",
                                       "fill": "$w-ink",
-                                      "width": 383,
+                                      "width": "fill_container",
                                       "height": 6
                                     }
                                   ]
