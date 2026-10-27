@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #f8f8f8;
+    color: #0a0a0a;
+  }
+}
+
+/* Custom styling for tabular figures and active tactile button scales */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+  transition: transform 70ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Custom receipt perforated jagged borders */
+.perforated-border {
+  background-image: radial-gradient(#f8f8f8 4px, transparent 4px);
+  background-size: 16px 16px;
+  background-position: -8px -8px;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
