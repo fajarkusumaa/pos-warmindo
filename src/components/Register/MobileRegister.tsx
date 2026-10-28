@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowRight, ChevronDown, Minus, Plus, Search, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Minus, Plus, Receipt, Search, X } from 'lucide-react';
 import { Category, MenuItem } from '../../types';
 import { formatRupiah } from '../../utils/format';
 import { cn } from '../../utils/cn';
@@ -13,6 +13,7 @@ interface MobileRegisterProps extends Omit<OrderPanelProps, 'className' | 'heade
   menu: MenuItem[];
   cashierName: string;
   shiftLabel: string;
+  onOpenSummary?: () => void;
   onSelectItem: (item: MenuItem) => void;
 }
 
@@ -28,6 +29,7 @@ export const MobileRegister: React.FC<MobileRegisterProps> = ({
   menu,
   cashierName,
   shiftLabel,
+  onOpenSummary,
   onSelectItem,
   ...orderPanel
 }) => {
@@ -52,6 +54,16 @@ export const MobileRegister: React.FC<MobileRegisterProps> = ({
             {cashierName.split(' ')[0]} · {shiftLabel}
           </p>
         </div>
+        {onOpenSummary && (
+          <button
+            type="button"
+            onClick={onOpenSummary}
+            title="Rekap Transaksi"
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-w-night-2 border border-w-night-line text-w-yolk hover:bg-w-night-3"
+          >
+            <Receipt className="w-5 h-5" />
+          </button>
+        )}
         <div className="relative">
           <button
             type="button"

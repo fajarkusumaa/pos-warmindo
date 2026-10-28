@@ -4,6 +4,8 @@ import { MobileRegister } from './components/Register/MobileRegister';
 import { ToppingModal } from './components/Register/ToppingModal';
 import { QrisModal } from './components/Register/QrisModal';
 import { ChangeModal } from './components/Register/ChangeModal';
+import { PaymentConfirmModal } from './components/Register/PaymentConfirmModal';
+import { TransactionSummaryModal } from './components/Register/TransactionSummaryModal';
 import { PrinterSettingsModal } from './components/Hardware/PrinterSettingsModal';
 import { OwnerPanel, OwnerPage } from './components/Owner/OwnerPanel';
 import { DashboardPage } from './components/Owner/pages/DashboardPage';
@@ -17,7 +19,7 @@ import { SettingsPage } from './components/Owner/pages/SettingsPage';
 import { useCart } from './hooks/useCart';
 import { useMediaQuery } from './hooks/useMediaQuery';
 import { EggOption, MenuItem, Order, OrderType, PrinterConfig, TableInfo, Topping } from './types';
-import { EGGS_AVAILABLE, INITIAL_TABLES, MENU_ITEMS, TOPPINGS_AVAILABLE } from './data/mockData';
+import { EGGS_AVAILABLE, INITIAL_SHIFT_ORDERS, INITIAL_TABLES, MENU_ITEMS, TOPPINGS_AVAILABLE } from './data/mockData';
 import {
   EMPLOYEES,
   INITIAL_PROFILE,
@@ -48,6 +50,9 @@ export const App: React.FC = () => {
   const [customizing, setCustomizing] = useState<MenuItem | null>(null);
   const [qrisOpen, setQrisOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
+  const [pendingPayment, setPendingPayment] = useState<{ method: 'cash' | 'qris'; cashReceived?: number } | null>(null);
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [ordersHistory, setOrdersHistory] = useState<Order[]>(INITIAL_SHIFT_ORDERS);
   const [printerOpen, setPrinterOpen] = useState(false);
   const [printerConfig, setPrinterConfig] = useState<PrinterConfig>({
     name: 'RPP02N Thermal 58',
@@ -90,7 +95,7 @@ export const App: React.FC = () => {
     };
   }, [outletId]);
 
-  const hotkeysEnabled = !customizing && !qrisOpen && !completedOrder && !printerOpen;
+  const hotkeysEnabled = !customizing && !qrisOpen && !completedOrder && !printerOpen && !summaryOpen && !pendingPayment;
 
   const handleSelectItem = (item: MenuItem) => {
     if (!item.available) return;
@@ -114,11 +119,13 @@ export const App: React.FC = () => {
         total,
         paymentMethod: method,
         cashReceived,
-        change: cashReceived !== undefined ? cashReceived - total : undefined,
+        change: cashReceived !== undefined ? Math.max(0, cashReceived - total) : undefined,
         cashierName: mode === 'owner' ? 'Fajar Kusuma' : CASHIER.name,
         timestamp: now.toISOString(),
       };
       setCompletedOrder(newOrder);
+      setOrdersHistory((prev) => [newOrder, ...prev]);
+
       if (orderType === 'dine_in') {
         setTables((prev) =>
           prev.map((t) =>
@@ -134,7 +141,13 @@ export const App: React.FC = () => {
     [cart.items, cart.total, mode, orderNumber, orderType, outletId, tableNumber],
   );
 
-  const handlePayCash = useCallback((cashReceived: number) => completeOrder('cash', cashReceived), [completeOrder]);
+  // Verifikasi pembayaran: buka modal konfirmasi Ya/Tidak terlebih dahulu
+  const handlePayCash = useCallback(
+    (cashReceived: number) => {
+      setPendingPayment({ method: 'cash', cashReceived });
+    },
+    [],
+  );
 
   const handleNewTransaction = () => {
     cart.clear();
@@ -272,6 +285,7 @@ export const App: React.FC = () => {
           printerConfig={printerConfig}
           onOpenPrinter={() => setPrinterOpen(true)}
           onOpenOwner={() => goOwner('dasbor')}
+          onOpenSummary={() => setSummaryOpen(true)}
           onSelectItem={handleSelectItem}
         />
       ) : (
@@ -280,6 +294,7 @@ export const App: React.FC = () => {
           menu={menu}
           cashierName={CASHIER.name}
           shiftLabel={CASHIER.shift}
+          onOpenSummary={() => setSummaryOpen(true)}
           onSelectItem={handleSelectItem}
         />
       )}
@@ -303,8 +318,38 @@ export const App: React.FC = () => {
           onClose={() => setQrisOpen(false)}
           onPaid={() => {
             setQrisOpen(false);
-            completeOrder('qris');
+            setPendingPayment({ method: 'qris' });
           }}
+        />
+      )}
+
+      {/* Modal Verifikasi Pembayaran (Konfirmasi Ya / Tidak) */}
+      {pendingPayment && (
+        <PaymentConfirmModal
+          orderNumber={orderNumber}
+          tableNumber={orderType === 'takeaway' ? 'Bungkus' : tableNumber}
+          orderType={orderType}
+          method={pendingPayment.method}
+          total={cart.total}
+          cashReceived={pendingPayment.cashReceived}
+          itemCount={cart.count}
+          onCancel={() => setPendingPayment(null)}
+          onConfirm={() => {
+            const { method, cashReceived } = pendingPayment;
+            setPendingPayment(null);
+            completeOrder(method, cashReceived);
+          }}
+        />
+      )}
+
+      {/* Modal Rekap Transaksi Shift Kasir */}
+      {summaryOpen && (
+        <TransactionSummaryModal
+          orders={ordersHistory}
+          cashierName={mode === 'owner' ? 'Fajar Kusuma' : CASHIER.name}
+          shiftLabel={CASHIER.shift}
+          printerConfig={printerConfig}
+          onClose={() => setSummaryOpen(false)}
         />
       )}
 

@@ -83,3 +83,67 @@ export const generateEscPosReceipt = (order: Order, paperWidth: '58mm' | '80mm' 
 
   return { textPreview, bytes };
 };
+
+export interface ShiftSummaryData {
+  cashierName: string;
+  shiftLabel: string;
+  orders: Order[];
+  outletName?: string;
+}
+
+export const generateEscPosShiftSummary = (
+  data: ShiftSummaryData,
+  paperWidth: '58mm' | '80mm' = '58mm',
+): EscPosResult => {
+  const maxChars = paperWidth === '58mm' ? 32 : 48;
+  const lineSeparator = '-'.repeat(maxChars);
+  const doubleSeparator = '='.repeat(maxChars);
+
+  const padBetween = (left: string, right: string, width: number): string => {
+    const space = width - left.length - right.length;
+    if (space > 0) return left + ' '.repeat(space) + right;
+    return left.slice(0, width - right.length - 1) + ' ' + right;
+  };
+
+  const centerText = (text: string, width: number): string => {
+    const padding = Math.max(0, Math.floor((width - text.length) / 2));
+    return ' '.repeat(padding) + text;
+  };
+
+  const cashOrders = data.orders.filter((o) => o.paymentMethod === 'cash');
+  const qrisOrders = data.orders.filter((o) => o.paymentMethod === 'qris');
+  const totalCash = cashOrders.reduce((sum, o) => sum + o.total, 0);
+  const totalQris = qrisOrders.reduce((sum, o) => sum + o.total, 0);
+  const totalRevenue = totalCash + totalQris;
+
+  const lines: string[] = [];
+  lines.push(centerText(data.outletName || 'WARMINDO 88', maxChars));
+  lines.push(centerText('LAPORAN REKAP TRANSAKSI KASIR', maxChars));
+  lines.push(doubleSeparator);
+  lines.push(padBetween(`Kasir: ${data.cashierName}`, `Shift: ${data.shiftLabel}`, maxChars));
+  lines.push(padBetween(`Dicetak: ${formatReceiptTime(new Date())}`, '', maxChars));
+  lines.push(lineSeparator);
+  lines.push(padBetween('Total Transaksi:', `${data.orders.length} struk`, maxChars));
+  lines.push(padBetween(`Tunai (${cashOrders.length}x):`, formatRupiah(totalCash), maxChars));
+  lines.push(padBetween(`QRIS (${qrisOrders.length}x):`, formatRupiah(totalQris), maxChars));
+  lines.push(doubleSeparator);
+  lines.push(padBetween('TOTAL OMZET:', formatRupiah(totalRevenue), maxChars));
+  lines.push(lineSeparator);
+  lines.push(centerText('--- RINCIAN NOTA ---', maxChars));
+
+  data.orders.forEach((o) => {
+    const timeStr = new Date(o.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    const lineLeft = `${timeStr} #${o.orderNumber.slice(-4)} (${o.paymentMethod.toUpperCase()})`;
+    lines.push(padBetween(lineLeft, formatRupiah(o.total), maxChars));
+  });
+
+  lines.push(doubleSeparator);
+  lines.push(centerText('Tutup Shift Kasir Selesai', maxChars));
+  lines.push('\n\n');
+
+  const textPreview = lines.join('\n');
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(textPreview);
+
+  return { textPreview, bytes };
+};

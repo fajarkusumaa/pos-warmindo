@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { LayoutGrid, LucideIcon, Search } from 'lucide-react';
+import { LayoutGrid, LucideIcon, Receipt, Search } from 'lucide-react';
 import { Category, MenuItem, PrinterConfig } from '../../types';
 import { CATEGORY_LABELS } from '../../data/mockData';
 import { formatNumber } from '../../utils/format';
@@ -18,6 +18,7 @@ interface RegisterScreenProps extends Omit<OrderPanelProps, 'className' | 'heade
   printerConfig: PrinterConfig;
   onOpenPrinter: () => void;
   onOpenOwner: () => void;
+  onOpenSummary: () => void;
   onSelectItem: (item: MenuItem) => void;
 }
 
@@ -37,6 +38,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
   printerConfig,
   onOpenPrinter,
   onOpenOwner,
+  onOpenSummary,
   onSelectItem,
   ...orderPanel
 }) => {
@@ -100,6 +102,16 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
           />
           <Kbd className="bg-w-night-3 text-w-night-muted font-semibold px-1.5 py-0.5 rounded-[5px]">/</Kbd>
         </label>
+
+        <button
+          type="button"
+          onClick={onOpenSummary}
+          title="Lihat Rekap Transaksi Shift"
+          className="flex items-center gap-2 px-3 py-2 rounded-[10px] bg-w-night-2 hover:bg-w-night-3 text-[13px] font-medium text-w-night-text border border-w-night-line/80 hover:border-w-yolk/50 transition-colors"
+        >
+          <Receipt className="w-4 h-4 text-w-yolk" />
+          <span>Rekap Transaksi</span>
+        </button>
 
         <button
           type="button"

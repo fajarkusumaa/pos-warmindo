@@ -1,4 +1,4 @@
-import { EggOption, MenuItem, TableInfo, Topping } from '../types';
+import { EggOption, MenuItem, Order, TableInfo, Topping } from '../types';
 
 export const TOPPINGS_AVAILABLE: Topping[] = [
   { id: 'top_kornet', name: 'Kornet sapi', price: 5000 },
@@ -162,4 +162,108 @@ export const INITIAL_TABLES: TableInfo[] = [
     capacity: 4,
     status: 'available',
   }
+];
+
+export const INITIAL_SHIFT_ORDERS: Order[] = [
+  {
+    id: 'ord_sample_1',
+    orderNumber: 'WMD-20261028-089',
+    tableNumber: 'Meja 01',
+    items: [
+      {
+        cartItemId: 'c1',
+        menuItem: MENU_ITEMS[0], // Indomie Goreng Aceh
+        quantity: 2,
+        customization: {
+          doneness: 'Kenyal',
+          egg: EGGS_AVAILABLE[0],
+          toppings: [TOPPINGS_AVAILABLE[0]],
+          spicinessLevel: 2,
+        },
+        unitPrice: 21000,
+        subtotal: 42000,
+      },
+      {
+        cartItemId: 'c2',
+        menuItem: MENU_ITEMS[10], // Es Teh Manis Jumbo
+        quantity: 2,
+        unitPrice: 5000,
+        subtotal: 10000,
+      },
+    ],
+    subtotal: 52000,
+    discount: 0,
+    tax: 0,
+    total: 52000,
+    paymentMethod: 'cash',
+    cashReceived: 100000,
+    change: 48000,
+    cashierName: 'Budi Santoso',
+    timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'ord_sample_2',
+    orderNumber: 'WMD-20261028-090',
+    tableNumber: 'Bungkus',
+    items: [
+      {
+        cartItemId: 'c3',
+        menuItem: MENU_ITEMS[2], // Indomie Kari Telur
+        quantity: 1,
+        unitPrice: 15000,
+        subtotal: 15000,
+      },
+      {
+        cartItemId: 'c4',
+        menuItem: MENU_ITEMS[14], // Kopi Susu Aren
+        quantity: 1,
+        unitPrice: 8000,
+        subtotal: 8000,
+      },
+    ],
+    subtotal: 23000,
+    discount: 0,
+    tax: 0,
+    total: 23000,
+    paymentMethod: 'qris',
+    cashierName: 'Budi Santoso',
+    timestamp: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'ord_sample_3',
+    orderNumber: 'WMD-20261028-091',
+    tableNumber: 'Meja 06',
+    items: [
+      {
+        cartItemId: 'c5',
+        menuItem: MENU_ITEMS[6], // Nasi Telur Kornet
+        quantity: 2,
+        unitPrice: 16000,
+        subtotal: 32000,
+      },
+      {
+        cartItemId: 'c6',
+        menuItem: MENU_ITEMS[15], // Gorengan Bakwan
+        quantity: 1,
+        unitPrice: 5000,
+        subtotal: 5000,
+      },
+      {
+        cartItemId: 'c7',
+        menuItem: MENU_ITEMS[10], // Es Teh
+        quantity: 2,
+        unitPrice: 5000,
+        subtotal: 10000,
+      },
+    ],
+    subtotal: 47000,
+    discount: 0,
+    tax: 0,
+    total: 47000,
+    paymentMethod: 'cash',
+    cashReceived: 50000,
+    change: 3000,
+    cashierName: 'Budi Santoso',
+    timestamp: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+  },
 ];
