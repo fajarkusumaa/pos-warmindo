@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { RegisterScreen } from './components/Register/RegisterScreen';
 import { MobileRegister } from './components/Register/MobileRegister';
 import { ToppingModal } from './components/Register/ToppingModal';
@@ -25,6 +25,7 @@ import {
   PURCHASE_ORDERS,
   STOCK_ITEMS,
 } from './data/ownerData';
+import { fetchBootstrapData, mutateNeon, saveOrderToNeon } from './utils/api';
 
 const CASHIER = { name: 'Budi Santoso', shift: 'Shift Malam' };
 
@@ -69,6 +70,26 @@ export const App: React.FC = () => {
   const [outletId, setOutletId] = useState(OUTLETS[0].id);
   const [profile, setProfile] = useState(INITIAL_PROFILE);
 
+  // Sinkronisasi data awal dari Neon (jika DATABASE_URL sudah diset di Vercel / .env.local)
+  useEffect(() => {
+    let active = true;
+    fetchBootstrapData(outletId).then((data) => {
+      if (!active || !data || !data.connected) return;
+      if (data.menu?.length) setMenu(data.menu);
+      if (data.toppings?.length) setToppings(data.toppings);
+      if (data.eggs?.length) setEggs(data.eggs);
+      if (data.tables?.length) setTables(data.tables);
+      if (data.stock?.length) setStock(data.stock);
+      if (data.purchaseOrders?.length) setPurchaseOrders(data.purchaseOrders);
+      if (data.employees?.length) setEmployees(data.employees);
+      if (data.profile) setProfile(data.profile);
+      if (typeof data.nextOrderNumber === 'number') setOrderNumber(data.nextOrderNumber);
+    });
+    return () => {
+      active = false;
+    };
+  }, [outletId]);
+
   const hotkeysEnabled = !customizing && !qrisOpen && !completedOrder && !printerOpen;
 
   const handleSelectItem = (item: MenuItem) => {
@@ -82,7 +103,7 @@ export const App: React.FC = () => {
       const total = cart.total;
       const now = new Date();
       const label = orderType === 'takeaway' ? 'Bungkus' : tableNumber;
-      setCompletedOrder({
+      const newOrder: Order = {
         id: `ord_${now.getTime()}`,
         orderNumber: `WMD-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(orderNumber).padStart(3, '0')}`,
         tableNumber: label,
@@ -96,7 +117,8 @@ export const App: React.FC = () => {
         change: cashReceived !== undefined ? cashReceived - total : undefined,
         cashierName: mode === 'owner' ? 'Fajar Kusuma' : CASHIER.name,
         timestamp: now.toISOString(),
-      });
+      };
+      setCompletedOrder(newOrder);
       if (orderType === 'dine_in') {
         setTables((prev) =>
           prev.map((t) =>
@@ -106,8 +128,10 @@ export const App: React.FC = () => {
           ),
         );
       }
+      // Simpan ke Neon PostgreSQL di background (Serverless Function /api/orders)
+      void saveOrderToNeon({ outletId, order: newOrder, orderType });
     },
-    [cart.items, cart.total, mode, orderNumber, orderType, tableNumber],
+    [cart.items, cart.total, mode, orderNumber, orderType, outletId, tableNumber],
   );
 
   const handlePayCash = useCallback((cashReceived: number) => completeOrder('cash', cashReceived), [completeOrder]);
@@ -122,6 +146,7 @@ export const App: React.FC = () => {
     if (kind === 'menu') setMenu((prev) => prev.map((m) => (m.id === id ? { ...m, available } : m)));
     if (kind === 'egg') setEggs((prev) => prev.map((e) => (e.id === id ? { ...e, available } : e)));
     if (kind === 'topping') setToppings((prev) => prev.map((t) => (t.id === id ? { ...t, available } : t)));
+    void mutateNeon('toggle_availability', { kind, id, available }, outletId);
   };
 
   const goOwner = (page: OwnerPage) => {
@@ -153,8 +178,14 @@ export const App: React.FC = () => {
             eggs={eggs}
             toppings={toppings}
             onSetAvailable={setAvailable}
-            onAddMenuItem={(item) => setMenu((prev) => [...prev, item])}
-            onAddTopping={(t) => setToppings((prev) => [...prev, t])}
+            onAddMenuItem={(item) => {
+              setMenu((prev) => [...prev, item]);
+              void mutateNeon('add_menu_item', { item }, outletId);
+            }}
+            onAddTopping={(t) => {
+              setToppings((prev) => [...prev, t]);
+              void mutateNeon('add_topping', { topping: t }, outletId);
+            }}
           />
         );
       case 'laporan':
@@ -163,7 +194,10 @@ export const App: React.FC = () => {
         return (
           <InventoryPage
             items={stock}
-            onStockIn={(id, qty) => setStock((prev) => prev.map((s) => (s.id === id ? { ...s, stock: s.stock + qty } : s)))}
+            onStockIn={(id, qty) => {
+              setStock((prev) => prev.map((s) => (s.id === id ? { ...s, stock: s.stock + qty } : s)));
+              void mutateNeon('stock_in', { id, qty }, outletId);
+            }}
             onCreatePo={(items) => {
               setPoDraftItems(items);
               setOwnerPage('pembelian');
@@ -174,13 +208,24 @@ export const App: React.FC = () => {
         return (
           <PurchasingPage
             orders={purchaseOrders}
-            onChange={setPurchaseOrders}
+            onChange={(nextOrders) => {
+              setPurchaseOrders(nextOrders);
+              void mutateNeon('sync_purchase_orders', { orders: nextOrders }, outletId);
+            }}
             draftItems={poDraftItems}
             onDraftHandled={() => setPoDraftItems(undefined)}
           />
         );
       case 'karyawan':
-        return <StaffPage employees={employees} onAddEmployee={(e) => setEmployees((prev) => [...prev, e])} />;
+        return (
+          <StaffPage
+            employees={employees}
+            onAddEmployee={(e) => {
+              setEmployees((prev) => [...prev, e]);
+              void mutateNeon('add_employee', { employee: e }, outletId);
+            }}
+          />
+        );
       case 'outlet':
         return (
           <OutletsPage
@@ -192,7 +237,16 @@ export const App: React.FC = () => {
           />
         );
       case 'pengaturan':
-        return <SettingsPage profile={profile} onSave={setProfile} onOpenPrinter={() => setPrinterOpen(true)} />;
+        return (
+          <SettingsPage
+            profile={profile}
+            onSave={(nextProfile) => {
+              setProfile(nextProfile);
+              void mutateNeon('save_profile', { profile: nextProfile }, outletId);
+            }}
+            onOpenPrinter={() => setPrinterOpen(true)}
+          />
+        );
     }
   };
 
